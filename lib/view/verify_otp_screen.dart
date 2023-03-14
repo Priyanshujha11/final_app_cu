@@ -1,4 +1,5 @@
 import 'package:email_otp/email_otp.dart';
+import 'package:final_app_cu/view/agenda.dart';
 import 'package:final_app_cu/view/home_page.dart';
 import 'package:final_app_cu/view/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   content: Text("OTP is verified"),
                 ));
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MyProfile()));
+                    MaterialPageRoute(builder: (context) => const AgendaScreen()));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Invalid OTP"),
