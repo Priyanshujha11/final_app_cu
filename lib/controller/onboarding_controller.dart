@@ -179,7 +179,7 @@ class OnboardingController extends GetxController {
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
-          Get.to(PhoneVerificationScreen());
+          Get.to(MyPhone());
         },
         child: const Padding(
           padding: EdgeInsets.symmetric(

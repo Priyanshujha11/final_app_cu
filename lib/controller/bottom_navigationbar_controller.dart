@@ -9,7 +9,7 @@ class BottomNavigationBarController extends GetxController {
   final appPages = [
     const HomePage(),
     const GalleryPage(),
-    const ProfilePage(),
+    const MyProfile(),
   ].obs;
 
   @override
