@@ -81,7 +81,7 @@ class RelaxView extends StatelessWidget {
               SlideTransition(
                 position: relaxAnimation,
                 child: const Text(
-                  "Relax",
+                  "Watch Virtually",
                   style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -91,7 +91,7 @@ class RelaxView extends StatelessWidget {
                   padding:
                       EdgeInsets.only(left: 64, right: 64, top: 16, bottom: 16),
                   child: Text(
-                    "Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore",
+                    "You can watch the event's visuals from the gallery section.",
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -102,7 +102,7 @@ class RelaxView extends StatelessWidget {
                   constraints:
                       const BoxConstraints(maxWidth: 350, maxHeight: 250),
                   child: Image.asset(
-                    'assets/relax_image.png',
+                    'assets/2.png',
                     fit: BoxFit.contain,
                   ),
                 ),

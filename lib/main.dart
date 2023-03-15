@@ -5,6 +5,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
+import 'package:final_app_cu/phone.dart';
+
+import 'bizconnect/introduction_animation/introduction_animation_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

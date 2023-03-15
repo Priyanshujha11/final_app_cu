@@ -68,7 +68,7 @@ class WelcomeView extends StatelessWidget {
                   constraints:
                       const BoxConstraints(maxWidth: 350, maxHeight: 350),
                   child: Image.asset(
-                    'assets/welcome.png',
+                    'assets/5.png',
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -84,7 +84,7 @@ class WelcomeView extends StatelessWidget {
                 padding:
                     EdgeInsets.only(left: 64, right: 64, top: 16, bottom: 16),
                 child: Text(
-                  "Stay organised and live stress-free with you-do app",
+                  "Stay organised and on time with your own BizConnect app",
                   textAlign: TextAlign.center,
                 ),
               ),

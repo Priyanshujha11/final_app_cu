@@ -87,7 +87,7 @@ class CareView extends StatelessWidget {
                     constraints:
                         const BoxConstraints(maxWidth: 350, maxHeight: 250),
                     child: Image.asset(
-                      'assets/care_image.png',
+                      'assets/3.png',
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -98,7 +98,7 @@ class CareView extends StatelessWidget {
                 child: SlideTransition(
                   position: relaxSecondHalfAnimation,
                   child: const Text(
-                    "Care",
+                    "Easy Info",
                     style:
                         TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
                   ),
@@ -108,7 +108,7 @@ class CareView extends StatelessWidget {
                 padding:
                     EdgeInsets.only(left: 64, right: 64, bottom: 16, top: 16),
                 child: Text(
-                  "Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore",
+                  "You'll get the details of the session from the M2M easily.",
                   textAlign: TextAlign.center,
                 ),
               ),
