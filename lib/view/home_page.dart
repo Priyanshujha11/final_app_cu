@@ -1,11 +1,16 @@
+import 'package:final_app_cu/view/agenda.dart';
+import 'package:final_app_cu/view/emergency.dart';
+import 'package:final_app_cu/view/feedback.dart';
+import 'package:final_app_cu/view/user_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  // BottomNavigationBarController bottomNavigationBarController =
+  //     Get.put(BottomNavigationBarController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,64 +22,83 @@ class HomePage extends StatelessWidget {
         ),
         child: Column(
           children: [
+            const SizedBox(
+              height: 40,
+            ),
             SizedBox(
-              height: Get.width * 0.5 - 15,
+              height: Get.width * 0.5,
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.grey[200],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.download,
-                            size: 38.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            'Minutes to Minutes',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 17.0,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AgendaScreen()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.grey[200],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.download,
+                              size: 38.0,
                             ),
-                          ),
-                          Text('(PDF)'),
-                        ],
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              'Minutes to Minutes',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17.0,
+                              ),
+                            ),
+                            Text('(PDF)'),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.grey[200],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.menu_book,
-                            size: 38.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            'Feedback',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 17.0,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FeedbackForm()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.grey[200],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.menu_book,
+                              size: 38.0,
                             ),
-                          ),
-                          Text('Form'),
-                        ],
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              'Feedback',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17.0,
+                              ),
+                            ),
+                            Text('Form'),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -157,59 +181,76 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.grey[200],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.emergency,
-                            size: 38.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            'Emergency',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 17.0,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const EmergencyHelpScreen()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.grey[200],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.emergency,
+                              size: 38.0,
                             ),
-                          ),
-                          Text('Help'),
-                        ],
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              'Emergency',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17.0,
+                              ),
+                            ),
+                            Text('Help'),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8.0),
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.grey[200],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.people,
-                            size: 38.0,
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          Text(
-                            'Users',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 17.0,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MyList()));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.0),
+                          color: Colors.grey[200],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.people,
+                              size: 38.0,
                             ),
-                          ),
-                          Text('list'),
-                        ],
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              'Users',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 17.0,
+                              ),
+                            ),
+                            Text('list'),
+                          ],
+                        ),
                       ),
                     ),
                   ),

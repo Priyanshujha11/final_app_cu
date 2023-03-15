@@ -1,6 +1,5 @@
 import 'package:email_otp/email_otp.dart';
 import 'package:final_app_cu/view/home_page.dart';
-import 'package:final_app_cu/view/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +17,7 @@ class MyOtp extends StatelessWidget {
       child: TextFormField(
         controller: otpController,
         keyboardType: TextInputType.number,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.titleLarge,
         textAlign: TextAlign.center,
         inputFormatters: [
           LengthLimitingTextInputFormatter(1),
@@ -42,8 +41,8 @@ class MyOtp extends StatelessWidget {
 }
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key,required this.myauth}) : super(key: key);
- final EmailOTP myauth ;
+  const OtpScreen({Key? key, required this.myauth}) : super(key: key);
+  final EmailOTP myauth;
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -113,15 +112,17 @@ class _OtpScreenState extends State<OtpScreen> {
           ),
           ElevatedButton(
             onPressed: () async {
-            if (await widget.myauth.verifyOTP(otp: otp1Controller.text +
-                    otp2Controller.text +
-                    otp3Controller.text +
-                    otp4Controller.text) == true) {
+              if (await widget.myauth.verifyOTP(
+                      otp: otp1Controller.text +
+                          otp2Controller.text +
+                          otp3Controller.text +
+                          otp4Controller.text) ==
+                  true) {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("OTP is verified"),
                 ));
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MyProfile()));
+                    MaterialPageRoute(builder: (context) => HomePage()));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Invalid OTP"),

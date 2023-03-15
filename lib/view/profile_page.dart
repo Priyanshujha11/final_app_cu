@@ -10,6 +10,7 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+  // final currentUser = FirebaseAuth.instance.currentUser!.uid;
   String name = '';
   String profilephoto = '';
   String designation = '';
@@ -26,108 +27,109 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: _fetchUserData(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return Center(child: CircularProgressIndicator());
+      body: StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('companies')
+              .doc("4WDTdUjI7BX2A8wUUdSs")
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
             }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator(
+                color: Color(0xffD12123),
+              );
+            }
+
             designationController.text = designation.toString();
             cityController.text = city.toString();
             phoneController.text = phoneNumber.toString();
             emailController.text = emailId.toString();
+            dynamic data = snapshot.data!.data();
             return Stack(
               children: [
-                Container(
-                  color: Color(0xff4B4AEF).withOpacity(0.30),
-                ),
                 Column(
                   children: [
                     Container(
                       height: 250,
                       decoration: BoxDecoration(
-                          color: Color(0xffA614FF).withOpacity(0.38),
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(50),
-                              bottomRight: Radius.circular(50))),
+                        color: const Color(0xffD12123).withOpacity(0.38),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50),
+                        ),
+                      ),
                     ),
-                    Spacer()
+                    const Spacer()
                   ],
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 150,
+                      const SizedBox(
+                        height: 100,
                       ),
                       Container(
-                        height: 530,
+                        height: MediaQuery.of(context).size.height * 0.6,
                         decoration: BoxDecoration(
-                          color: Color(0XFFFFFFFF),
+                          color: const Color(0XFFFFFFFF),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 110,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              TextContainer("Name", "name"),
-                              buildTextField(
-                                  "Designation", designationController),
-                              buildTextField("City", cityController),
-                              TextContainer("Company", "company"),
-                              buildTextField("Phone Number", phoneController),
-                              buildTextField("Email ID", emailController),
-                            ],
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 100,
+                                ),
+
+                                TextContainer("Name", data['name']),
+                                TextContainer("Company", data['companyname']),
+                                TextContainer(
+                                    "Designation", data['designation']),
+                                TextContainer("Contact", data['contact']),
+                                TextContainer("City", data['city']),
+                                TextContainer("EmailId", data['gmail']),
+
+                                // buildTextField("Phone Number", phoneController),
+                                // buildTextField("Email ID", emailController),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Spacer(),
-                            Icon(
-                              Icons.arrow_back,
-                              size: 30,
-                            ),
-                            Spacer(),
-                            Container(
-                              height: 50,
-                              width: 250,
-                              child: Center(
-                                  child: Text(
-                                'SAVE',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              )),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: LinearGradient(colors: [
-                                    Color(0XFFAC49F9).withOpacity(0.57),
-                                    Color(0XFF8914FF)
-                                  ])),
-                            ),
-                          ],
-                        ),
-                      )
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //   child: Container(
+                      //     height: 50,
+                      //     width: 250,
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(10),
+                      //         gradient: LinearGradient(colors: [
+                      //           const Color(0xffD12123).withOpacity(0.57),
+                      //           const Color(0xffD12123)
+                      //         ])),
+                      //     child: const Center(
+                      //         child: Text(
+                      //       'SAVE',
+                      //       style: TextStyle(fontSize: 20, color: Colors.white),
+                      //     )),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
                 Column(
                   children: [
                     const SizedBox(
-                      height: 70,
+                      height: 10,
                     ),
                     Center(
                         child: Padding(
@@ -135,7 +137,7 @@ class _MyProfileState extends State<MyProfile> {
                       child: CircleAvatar(
                         radius: 80,
                         backgroundColor: Colors.grey.shade300,
-                        backgroundImage: NetworkImage(profilephoto),
+                        backgroundImage: NetworkImage(data['profile']),
                       ),
                     ))
                   ],
@@ -148,10 +150,10 @@ class _MyProfileState extends State<MyProfile> {
 
   _editUserProfile(String name, String username, String location, String age,
       String about) async {
-    final currentUser = FirebaseAuth.instance.currentUser;
+    final currentUser = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser!.uid)
+        .collection('companies')
+        .doc(currentUser)
         .update({
       'city': city,
       'designation': designation,
@@ -159,37 +161,6 @@ class _MyProfileState extends State<MyProfile> {
       'emailId': emailId
     }).then((value) {
       // Edit Profile", "Profile edited successfully!
-    });
-  }
-
-  _fetchUserData() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser!.uid)
-        .get()
-        .then((ds) {
-      if (ds.get('profilephoto') != null) {
-        profilephoto = ds.get('profilephoto');
-      }
-      if (ds.get('name') != null) {
-        name = ds.get('name');
-      }
-      if (ds.get('city') != null) {
-        city = ds.get('city');
-      }
-      if (ds.get('designation') != null) {
-        designation = ds.get('designation');
-      }
-      if (ds.get('company') != null) {
-        company = ds.get('company');
-      }
-      if (ds.get('phoneNumber') != null) {
-        phoneNumber = ds.get('phoneNumber');
-      }
-      if (ds.get('emailId') != null) {
-        emailId = ds.get('emailId');
-      }
     });
   }
 }
@@ -200,7 +171,7 @@ Widget buildTextField(String labelText, TextEditingController editController) {
     child: Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color(0xffD9D9D9).withOpacity(0.33),
+        color: const Color(0xffD9D9D9).withOpacity(0.33),
       ),
       child: Padding(
         padding: const EdgeInsets.all(3.0),
@@ -226,13 +197,13 @@ Widget TextContainer(String labelText, String text) {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color(0xffD9D9D9).withOpacity(0.33),
+        color: const Color(0xffD9D9D9).withOpacity(0.33),
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(15, 15, 10, 10),
         child: Text(
           text,
-          style: const TextStyle(fontSize: 20, color: Color(0xffB8BBD2)),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     ),
