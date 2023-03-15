@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_app_cu/view/home_page.dart';
+import 'package:final_app_cu/view/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +9,7 @@ class MyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
       appBar: AppBar(
         backgroundColor: const Color(0xffD12123),
         title: const Text('Users'),
@@ -29,45 +30,57 @@ class MyList extends StatelessWidget {
             return ListView(
                 children: snapshot.data!.docs.map((DocumentSnapshot doc) {
               Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-              return Card(
-                child: Container(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    children: [
-                      Center(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.grey.shade300,
-                          backgroundImage: NetworkImage(data['profile']),
-                        ),
-                      )),
-                      const SizedBox(
-                        width: 30,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(MyProfile(
+                      id: doc.id,
+                      fromList: true,
+                    ));
+                  },
+                  child: Card(
+                    child: Container(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Row(
                         children: [
-                          Text(
-                            '${data['name']}',
-                            style: const TextStyle(
-                                fontSize: 24.0, fontWeight: FontWeight.bold),
+                          Center(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundColor: Colors.grey.shade300,
+                              backgroundImage: NetworkImage(data['profile']),
+                            ),
+                          )),
+                          const SizedBox(
+                            width: 30,
                           ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            '${data['companyname']}',
-                            style: const TextStyle(fontSize: 20.0),
-                          ),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            '${data['designation']}',
-                            style: const TextStyle(fontSize: 20.0),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${data['name']}',
+                                style: const TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                '${data['companyname']}',
+                                style: const TextStyle(fontSize: 20.0),
+                              ),
+                              const SizedBox(height: 10.0),
+                              Text(
+                                '${data['designation']}',
+                                style: const TextStyle(fontSize: 20.0),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               );
