@@ -13,7 +13,7 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: const Color.fromRGBO(243, 232, 234, 1),
       padding: const EdgeInsets.symmetric(
         horizontal: 15.0,
         vertical: 20.0,
@@ -28,11 +28,11 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Image.asset('assets/app-logo.png'),
               ),
               const Spacer(),
-              Text(
-                titleList[index],
-                style: const TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w700,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 15, 10, 0),
+                child: SizedBox(
+                  height: 40.0,
+                  child: Image.asset('assets/chandigarh-university.png'),
                 ),
               ),
             ],

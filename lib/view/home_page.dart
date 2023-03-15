@@ -1,10 +1,12 @@
 import 'package:final_app_cu/view/agenda.dart';
 import 'package:final_app_cu/view/emergency.dart';
 import 'package:final_app_cu/view/feedback.dart';
+import 'package:final_app_cu/view/pdf_view.dart';
 import 'package:final_app_cu/view/user_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,7 +17,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xffD12123),
+        onPressed: () {
+          Get.to(const Pdf());
+        },
+        child: const Text(
+          'M2M',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15.0,
@@ -23,7 +38,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
             SizedBox(
               height: Get.width * 0.5,
@@ -40,26 +55,27 @@ class HomePage extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.grey[200],
+                          color: Colors.white,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(
-                              Icons.download,
+                              FontAwesomeIcons.computer,
+                              color: Color(0xffD12123),
                               size: 38.0,
                             ),
                             SizedBox(
                               height: 10.0,
                             ),
                             Text(
-                              'Minutes to Minutes',
+                              'Session',
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 17.0,
                               ),
                             ),
-                            Text('(PDF)'),
+                            Text('Details'),
                           ],
                         ),
                       ),
@@ -72,31 +88,32 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FeedbackForm()));
+                                builder: (context) => const MyList()));
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.grey[200],
+                          color: Colors.white,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(
-                              Icons.menu_book,
+                              Icons.people,
+                              color: Color(0xffD12123),
                               size: 38.0,
                             ),
                             SizedBox(
                               height: 10.0,
                             ),
                             Text(
-                              'Feedback',
+                              'Users',
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 17.0,
                               ),
                             ),
-                            Text('Form'),
+                            Text('list'),
                           ],
                         ),
                       ),
@@ -114,7 +131,7 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.0),
-                        color: Colors.grey[200],
+                        color: Colors.white,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -135,8 +152,14 @@ class HomePage extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(FontAwesomeIcons.facebook),
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://www.facebook.com/chandigarhuniversitygharuan/');
+                                    },
+                                    icon: Icon(
+                                      FontAwesomeIcons.squareFacebook,
+                                      color: Colors.blue.shade700,
+                                    ),
                                   ),
                                   const Text('Facebook'),
                                 ],
@@ -147,9 +170,14 @@ class HomePage extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
-                                    icon:
-                                        const Icon(FontAwesomeIcons.instagram),
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://www.instagram.com/chandigarhuniversity');
+                                    },
+                                    icon: const Icon(
+                                      FontAwesomeIcons.instagram,
+                                      color: Color.fromRGBO(214, 41, 118, 1),
+                                    ),
                                   ),
                                   const Text('Instagram'),
                                 ],
@@ -160,10 +188,34 @@ class HomePage extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(FontAwesomeIcons.twitter),
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://twitter.com/Chandigarh_uni');
+                                    },
+                                    icon: const Icon(
+                                      FontAwesomeIcons.twitter,
+                                      color: Colors.lightBlue,
+                                    ),
                                   ),
                                   const Text('Twitter'),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 25.0,
+                              ),
+                              Column(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://www.linkedin.com/school/chandigarh-university/?originalSubdomain=in');
+                                    },
+                                    icon: Icon(
+                                      FontAwesomeIcons.linkedin,
+                                      color: Colors.blue.shade700,
+                                    ),
+                                  ),
+                                  const Text('Linkedin'),
                                 ],
                               ),
                             ],
@@ -192,26 +244,27 @@ class HomePage extends StatelessWidget {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.grey[200],
+                          color: Colors.white,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(
                               Icons.emergency,
+                              color: Color(0xffD12123),
                               size: 38.0,
                             ),
                             SizedBox(
                               height: 10.0,
                             ),
                             Text(
-                              'Emergency',
+                              'Support',
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 17.0,
                               ),
                             ),
-                            Text('Help'),
+                            Text('Center'),
                           ],
                         ),
                       ),
@@ -224,31 +277,32 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const MyList()));
+                                builder: (context) => const FeedbackForm()));
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
-                          color: Colors.grey[200],
+                          color: Colors.white,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(
-                              Icons.people,
+                              Icons.menu_book,
+                              color: Color(0xffD12123),
                               size: 38.0,
                             ),
                             SizedBox(
                               height: 10.0,
                             ),
                             Text(
-                              'Users',
+                              'Feedback',
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 17.0,
                               ),
                             ),
-                            Text('list'),
+                            Text('Form'),
                           ],
                         ),
                       ),

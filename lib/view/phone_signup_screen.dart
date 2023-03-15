@@ -1,85 +1,111 @@
-import 'package:email_otp/email_otp.dart';
-import 'package:final_app_cu/view/verify_otp_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class MyPhone extends StatefulWidget {
-  const MyPhone({Key? key}) : super(key: key);
-
+class PhoneVerificationScreen extends StatefulWidget {
   @override
-  State<MyPhone> createState() => _MyPhoneState();
+  _PhoneVerificationScreenState createState() =>
+      _PhoneVerificationScreenState();
 }
 
-class _MyPhoneState extends State<MyPhone> {
-  TextEditingController email = TextEditingController();
-  EmailOTP myauth = EmailOTP();
+class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
+  TextEditingController _phoneNumberController = TextEditingController();
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.network(
-              "https://img.freepik.com/free-vector/emails-concept-illustration_114360-1355.jpg?w=1380&t=st=1673699432~exp=1673700032~hmac=d65454eb5c72e8310209bf8ae770f849ea388f318dc6b9b1300b24b03e8886ca",
-              height: 350,
-            ),
-          ),
-          const SizedBox(
-            height: 60,
-            child: Text(
-              "Enter your Email to get Code",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-          Card(
+      appBar: AppBar(
+        backgroundColor: const Color(0xffD12123),
+        title: Text('User Authentication'),
+      ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: Get.height,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
-                  controller: email,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(
-                      Icons.mail,
+                SizedBox(
+                  height: Get.width * 0.5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: Get.width * 0.6,
+                      child: Image.asset('assets/cu-logo.png'),
                     ),
-                    suffixIcon: IconButton(
-                        onPressed: () async {
-                          myauth.setConfig(
-                              appEmail: "contact@hdevcoder.com",
-                              appName: "Email OTP",
-                              userEmail: email.text,
-                              otpLength: 4,
-                              otpType: OTPType.digitsOnly);
-                          if (await myauth.sendOTP() == true) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("OTP has been sent"),
-                            ));
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>   OtpScreen(myauth: myauth,)));
-                          } else {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Oops, OTP send failed"),
-                            ));
+                  ],
+                ),
+                SizedBox(
+                  height: Get.width * 0.5,
+                ),
+                const Text(
+                  'Enter your phone number:',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16.0),
+                TextField(
+                  controller: _phoneNumberController,
+                  keyboardType: TextInputType.phone,
+                  decoration: const InputDecoration(
+                    focusColor: Color(0xffD12123),
+                    hintText: 'Phone Number',
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                Center(
+                  child: MaterialButton(
+                    color: const Color(0xff2B2A29),
+                    onPressed: () async {
+                      String phoneNumber = '+91${_phoneNumberController.text}';
+                      await _auth.verifyPhoneNumber(
+                        phoneNumber: phoneNumber,
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {
+                          // Automatically sign in the user on Android devices that
+                          // support automatic SMS code retrieval.
+                          _auth.signInWithCredential(credential);
+                        },
+                        verificationFailed: (FirebaseAuthException e) {
+                          if (e.code == 'invalid-phone-number') {
+                            Get.snackbar(
+                              'Attention!',
+                              'The provided phone number is not valid.',
+                              snackPosition: SnackPosition.BOTTOM,
+                            );
                           }
                         },
-                        icon: const Icon(
-                          Icons.send_rounded,
-                          color: Colors.teal,
-                        )),
-                    hintText: "Email Address",
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        codeSent: (String verificationId, int? resendToken) {
+                          // Store the verification ID and resend token so we can use them later
+                          // to create PhoneAuthCredential
+                          String smsCode = ''; // User enters the code here
+                          PhoneAuthCredential credential =
+                              PhoneAuthProvider.credential(
+                                  verificationId: verificationId,
+                                  smsCode: smsCode);
+                          _auth.signInWithCredential(credential);
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {
+                          // Called when the automatic code retrieval has timed out and
+                          // the user did not receive the code
+                        },
+                      );
+                    },
+                    child: const Text(
+                      'Verify',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-        ]),
+        ),
       ),
     );
   }

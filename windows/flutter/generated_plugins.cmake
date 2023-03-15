@@ -4,7 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   rive_common
+  share_plus
   smart_auth
+  syncfusion_pdfviewer_windows
   url_launcher_windows
 )
 
