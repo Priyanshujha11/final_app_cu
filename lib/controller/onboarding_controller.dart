@@ -1,4 +1,3 @@
-
 import 'package:final_app_cu/view/phone_signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -179,7 +178,7 @@ class OnboardingController extends GetxController {
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
         onTap: () {
-          Get.to(MyPhone());
+          Get.to(PhoneVerificationScreen());
         },
         child: const Padding(
           padding: EdgeInsets.symmetric(
