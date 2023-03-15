@@ -64,7 +64,8 @@ class GalleryPage extends StatelessWidget {
                       onTap: () {
                         Get.to(
                           FullPageVideo(
-                            videoPlayerController: VideoPlayerController.network(
+                            videoPlayerController:
+                                VideoPlayerController.network(
                               data[index]['url'].toString(),
                             ),
                             title: data[index]['title'].toString(),
@@ -93,4 +94,3 @@ class GalleryPage extends StatelessWidget {
     );
   }
 }
-

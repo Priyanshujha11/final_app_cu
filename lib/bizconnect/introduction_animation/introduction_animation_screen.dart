@@ -5,6 +5,7 @@ import 'package:final_app_cu/bizconnect/introduction_animation/components/relax_
 import 'package:final_app_cu/bizconnect/introduction_animation/components/splash_view.dart';
 import 'package:final_app_cu/bizconnect/introduction_animation/components/top_back_skip_view.dart';
 import 'package:final_app_cu/bizconnect/introduction_animation/components/welcome_view.dart';
+import 'package:final_app_cu/phone.dart';
 import 'package:flutter/material.dart';
 
 class IntroductionAnimationScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _IntroductionAnimationScreenState
   Widget build(BuildContext context) {
     print(_animationController?.value);
     return Scaffold(
-      backgroundColor: const Color(0xffF7EBE1),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: ClipRect(
         child: Stack(
           children: [
@@ -112,6 +113,6 @@ class _IntroductionAnimationScreenState
   }
 
   void _signUpClick() {
-    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MyPhone()));
   }
 }

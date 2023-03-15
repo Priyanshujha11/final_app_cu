@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
+import 'package:final_app_cu/phone.dart';
+
+import 'bizconnect/introduction_animation/introduction_animation_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +20,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen.navigate(
-        next: (_) => AppBase(),
+        next: (_) => IntroductionAnimationScreen(),
         name: 'assets/bizconnect_splash.riv',
         until: () => Future.delayed(
           const Duration(

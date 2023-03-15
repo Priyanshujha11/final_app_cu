@@ -27,34 +27,43 @@ class _SplashViewState extends State<SplashView> {
       position: introductionanimation,
       child: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                'assets/introduction_image.png',
-                fit: BoxFit.cover,
-              ),
+              height: 188,
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text(
-                "Clearhead",
-                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              ),
+            Column(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset(
+                    'assets/1.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 19, bottom: 8.0),
+                  child: Text(
+                    "Attend in Peace",
+                    style:
+                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left: 64, right: 64),
+                  child: Text(
+                    "Attend in Peace promotes a culture of respect and inclusivity at events.",
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 64, right: 64),
-              child: Text(
-                "Lorem ipsum dolor sit amet,consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore",
-                textAlign: TextAlign.center,
-              ),
+            SizedBox(
+              height: 188,
             ),
-            const SizedBox(
-              height: 48,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).padding.bottom + 16),
+            Align(
+              alignment: Alignment.bottomCenter,
               child: InkWell(
                 onTap: () {
                   widget.animationController.animateTo(0.2);
@@ -69,7 +78,7 @@ class _SplashViewState extends State<SplashView> {
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(38.0),
-                    color: const Color(0xff132137),
+                    color: const Color(0xffD12123),
                   ),
                   child: const Text(
                     "Let's begin",

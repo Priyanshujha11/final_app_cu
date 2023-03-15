@@ -52,6 +52,7 @@ class _FullPageVideoState extends State<FullPageVideo> {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        backgroundColor: Color(0xffD12123),
         actions: [
           IconButton(
             icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
@@ -65,7 +66,9 @@ class _FullPageVideoState extends State<FullPageVideo> {
                 aspectRatio: _controller.value.aspectRatio,
                 child: VideoPlayer(_controller),
               )
-            : CircularProgressIndicator(),
+            : CircularProgressIndicator(
+                color: Color(0xffD12123),
+              ),
       ),
     );
   }

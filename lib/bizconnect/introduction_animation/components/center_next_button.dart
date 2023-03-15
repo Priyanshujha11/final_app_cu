@@ -74,7 +74,7 @@ class CenterNextButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(
                         8 + 32 * (1 - signUpMoveAnimation.value)),
-                    color: const Color(0xff132137),
+                    color: const Color(0xffD12123),
                   ),
                   child: PageTransitionSwitcher(
                     duration: const Duration(milliseconds: 480),
@@ -104,7 +104,7 @@ class CenterNextButton extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: const [
                                   Text(
-                                    'Sign Up',
+                                    'Verify',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -137,24 +137,24 @@ class CenterNextButton extends StatelessWidget {
               position: loginTextMoveAnimation,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Already have an account? ',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Color(0xff132137),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+                // children: const [
+                //   Text(
+                //     'Already have an account? ',
+                //     style: TextStyle(
+                //       color: Colors.grey,
+                //       fontSize: 14,
+                //       fontWeight: FontWeight.normal,
+                //     ),
+                //   ),
+                //   Text(
+                //     'Login',
+                //     style: TextStyle(
+                //       color: Color(0xff132137),
+                //       fontSize: 16,
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ],
               ),
             ),
           ),
@@ -189,7 +189,7 @@ class CenterNextButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(32),
                   color: selectedIndex == i
-                      ? const Color(0xff132137)
+                      ? const Color(0xffD12123)
                       : const Color(0xffE3E4E4),
                 ),
                 width: 10,
