@@ -25,7 +25,7 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               SizedBox(
                 height: 60.0,
-                child: Image.asset('assets/cu-logo.png'),
+                child: Image.asset('assets/app-logo.png'),
               ),
               const Spacer(),
               Text(

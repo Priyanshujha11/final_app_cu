@@ -1,202 +1,211 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class MyProfile extends StatefulWidget {
+  const MyProfile({super.key});
+
+  @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
+  // final currentUser = FirebaseAuth.instance.currentUser!.uid;
+  String name = '';
+  String profilephoto = '';
+  String designation = '';
+  String city = '';
+  String company = '';
+  String phoneNumber = '';
+  String emailId = '';
+
+  TextEditingController designationController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('companies')
+              .doc("4WDTdUjI7BX2A8wUUdSs")
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator(
+                color: Color(0xffD12123),
+              );
+            }
+
+            designationController.text = designation.toString();
+            cityController.text = city.toString();
+            phoneController.text = phoneNumber.toString();
+            emailController.text = emailId.toString();
+            dynamic data = snapshot.data!.data();
+            return Stack(
               children: [
-                CircleAvatar(
-                  radius: 35.0,
-                  backgroundColor: Colors.grey[200],
-                  backgroundImage: const NetworkImage(
-                    'https://picsum.photos/200',
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  'Ajayraj Singh',
-                  style: TextStyle(
-                    fontSize: 21.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Text(
-                'Designation: Founder & CEO\nCity: Chandigarh\nCompany: Wyne\nPhone No.: +91-7599002658\nEmail: ceo@shiningcoders.com',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 35.0,
+                Column(
+                  children: [
+                    Container(
+                      height: 250,
                       decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Edit profile',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                          ),
+                        color: const Color(0xffD12123).withOpacity(0.38),
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 8.0,
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 35.0,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(5.0),
+                    const Spacer()
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 100,
                       ),
-                      child: const Center(
-                        child: Text(
-                          'Share profile',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        decoration: BoxDecoration(
+                          color: const Color(0XFFFFFFFF),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 100,
+                                ),
+
+                                TextContainer("Name", data['name']),
+                                TextContainer("Company", data['companyname']),
+                                TextContainer(
+                                    "Designation", data['designation']),
+                                TextContainer("Contact", data['contact']),
+                                TextContainer("City", data['city']),
+                                TextContainer("EmailId", data['gmail']),
+
+                                // buildTextField("Phone Number", phoneController),
+                                // buildTextField("Email ID", emailController),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 4),
+                      //   child: Container(
+                      //     height: 50,
+                      //     width: 250,
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(10),
+                      //         gradient: LinearGradient(colors: [
+                      //           const Color(0xffD12123).withOpacity(0.57),
+                      //           const Color(0xffD12123)
+                      //         ])),
+                      //     child: const Center(
+                      //         child: Text(
+                      //       'SAVE',
+                      //       style: TextStyle(fontSize: 20, color: Colors.white),
+                      //     )),
+                      //   ),
+                      // )
+                    ],
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            // Display Grid
-            Container(
-              color: Colors.white,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: 3,
-                crossAxisSpacing: 5.0,
-                mainAxisSpacing: 5.0,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
                 ),
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/280'),
-                      ),
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/260'),
+                    Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        radius: 80,
+                        backgroundColor: Colors.grey.shade300,
+                        backgroundImage: NetworkImage(data['profile']),
                       ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/270'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/300'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/290'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/310'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/320'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: const DecorationImage(
-                        image: NetworkImage('https://picsum.photos/330'),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                    ))
+                  ],
+                )
+              ],
+            );
+          }),
     );
   }
+
+  _editUserProfile(String name, String username, String location, String age,
+      String about) async {
+    final currentUser = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance
+        .collection('companies')
+        .doc(currentUser)
+        .update({
+      'city': city,
+      'designation': designation,
+      'phoneNumber': phoneNumber,
+      'emailId': emailId
+    }).then((value) {
+      // Edit Profile", "Profile edited successfully!
+    });
+  }
+}
+
+Widget buildTextField(String labelText, TextEditingController editController) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 12.0),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: const Color(0xffD9D9D9).withOpacity(0.33),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: TextField(
+          controller: editController,
+          decoration: const InputDecoration(
+              contentPadding: EdgeInsets.only(bottom: 3),
+              // labelText: labelText,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              border: InputBorder.none,
+              hintStyle: TextStyle(fontSize: 20, color: Color(0xffB8BBD2))),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget TextContainer(String labelText, String text) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 12.0),
+    child: Container(
+      height: 55,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: const Color(0xffD9D9D9).withOpacity(0.33),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(15, 15, 10, 10),
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 20),
+        ),
+      ),
+    ),
+  );
 }
