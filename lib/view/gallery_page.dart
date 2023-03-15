@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_app_cu/view/full_page_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GalleryPage extends StatelessWidget {
   const GalleryPage({super.key});
@@ -35,14 +37,24 @@ class GalleryPage extends StatelessWidget {
                   horizontal: 16.0,
                 ),
                 itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(6.0),
-                      image: DecorationImage(
-                        image: NetworkImage(data[index]['type'] == 'picture'
-                            ? data[index]['url'].toString()
-                            : ''),
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        FullPageImage(
+                          imgSrc: data[index]['url'].toString(),
+                          title: data[index]['desc'].toString(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(6.0),
+                        image: DecorationImage(
+                          image: NetworkImage(data[index]['type'] == 'picture'
+                              ? data[index]['url'].toString()
+                              : ''),
+                        ),
                       ),
                     ),
                   );

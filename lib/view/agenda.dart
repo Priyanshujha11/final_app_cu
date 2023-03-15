@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:final_app_cu/view/home_page.dart';
 import 'package:final_app_cu/view/notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 
 class AgendaScreen extends StatefulWidget {
@@ -26,7 +30,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
         backgroundColor: const Color(0xffD12123),
         leading: GestureDetector(
           onTap: () {
-            Get.to(const HomePage());
+            Get.back();
           },
           child: const Icon(Icons.arrow_back_ios),
         ),
@@ -58,7 +62,7 @@ class _AgendaScreenState extends State<AgendaScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            width: MediaQuery.of(context).size.width * 0.67,
                             child: Text(
                               data[index]['agenda'],
                               style: const TextStyle(
@@ -123,7 +127,18 @@ class _AgendaScreenState extends State<AgendaScreen> {
                             color: Colors.grey.shade200,
                             shape: BoxShape.circle),
                         child: GestureDetector(
-                            onTap: () {},
+                            onTap: () async {
+                              Directory appDocDir =
+                                  await getApplicationDocumentsDirectory();
+
+                              await FlutterDownloader.enqueue(
+                                url: data[index]['pdfurl'],
+                                headers: {},
+                                savedDir: appDocDir.path,
+                                showNotification: true,
+                                openFileFromNotification: true,
+                              );
+                            },
                             child: const Padding(
                               padding: EdgeInsets.all(12.0),
                               child: Icon(Icons.download),

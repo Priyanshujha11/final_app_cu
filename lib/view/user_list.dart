@@ -11,12 +11,6 @@ class MyList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffD12123),
-        leading: GestureDetector(
-          onTap: () {
-            Get.to(const HomePage());
-          },
-          child: const Icon(Icons.arrow_back_ios),
-        ),
         title: const Text('Users'),
       ),
       body: StreamBuilder<QuerySnapshot>(

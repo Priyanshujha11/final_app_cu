@@ -5,6 +5,7 @@ import 'package:final_app_cu/view/user_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -135,7 +136,10 @@ class HomePage extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://www.facebook.com/chandigarhuniversitygharuan/');
+                                    },
                                     icon: const Icon(FontAwesomeIcons.facebook),
                                   ),
                                   const Text('Facebook'),
@@ -147,7 +151,10 @@ class HomePage extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://www.instagram.com/chandigarhuniversity');
+                                    },
                                     icon:
                                         const Icon(FontAwesomeIcons.instagram),
                                   ),
@@ -160,10 +167,28 @@ class HomePage extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://twitter.com/Chandigarh_uni');
+                                    },
                                     icon: const Icon(FontAwesomeIcons.twitter),
                                   ),
                                   const Text('Twitter'),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 25.0,
+                              ),
+                              Column(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      launchUrlString(
+                                          'https://www.linkedin.com/school/chandigarh-university/?originalSubdomain=in');
+                                    },
+                                    icon: const Icon(FontAwesomeIcons.linkedin),
+                                  ),
+                                  const Text('Linkedin'),
                                 ],
                               ),
                             ],
