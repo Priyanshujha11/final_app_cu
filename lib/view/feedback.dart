@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_app_cu/view/app_base.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackForm extends StatefulWidget {
@@ -27,7 +28,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
         child: StreamBuilder<DocumentSnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('companies')
-                .doc("4WDTdUjI7BX2A8wUUdSs")
+                .doc(USERID)
                 .snapshots(),
             builder: (BuildContext context,
                 AsyncSnapshot<DocumentSnapshot> snapshot) {
