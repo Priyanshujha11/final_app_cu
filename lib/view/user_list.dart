@@ -54,29 +54,31 @@ class MyList extends StatelessWidget {
                             ),
                           )),
                           const SizedBox(
-                            width: 30,
+                            width: 15,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${data['name']}',
-                                style: const TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 10.0),
-                              Text(
-                                '${data['companyname']}',
-                                style: const TextStyle(fontSize: 20.0),
-                              ),
-                              const SizedBox(height: 10.0),
-                              Text(
-                                '${data['designation']}',
-                                style: const TextStyle(fontSize: 20.0),
-                              ),
-                            ],
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${data['name']}',
+                                  style: const TextStyle(
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(height: 10.0),
+                                Text(
+                                  '${data['companyname']}',
+                                  style: const TextStyle(fontSize: 20.0),
+                                ),
+                                const SizedBox(height: 10.0),
+                                Text(
+                                  '${data['designation']}',
+                                  style: const TextStyle(fontSize: 20.0),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
