@@ -3,14 +3,26 @@ import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AppBase extends StatelessWidget {
-  AppBase({super.key});
+String? USERID;
 
+class AppBase extends StatefulWidget {
+  var usernewId;
+
+  AppBase({required this.usernewId, super.key});
+
+  @override
+  State<AppBase> createState() => _AppBaseState();
+}
+
+class _AppBaseState extends State<AppBase> {
   BottomNavigationBarController bottomNavigationBarController =
       Get.put(BottomNavigationBarController());
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      USERID = widget.usernewId;
+    });
     return GetX<BottomNavigationBarController>(
       builder: (controller) {
         return SafeArea(

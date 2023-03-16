@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_app_cu/authcontroller.dart';
+import 'package:final_app_cu/view/app_base.dart';
 import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+  AuthController auth = AuthController();
   String name = '';
   String profilephoto = '';
   String designation = '';
@@ -36,7 +39,7 @@ class _MyProfileState extends State<MyProfile> {
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection('companies')
-              .doc(widget.id)
+              .doc(USERID)
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -54,6 +57,7 @@ class _MyProfileState extends State<MyProfile> {
             phoneController.text = phoneNumber.toString();
             emailController.text = emailId.toString();
             dynamic data = snapshot.data!.data();
+            print(data);
             return Stack(
               children: [
                 Column(
