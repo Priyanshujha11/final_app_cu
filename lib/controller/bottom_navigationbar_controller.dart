@@ -1,6 +1,7 @@
 import 'package:final_app_cu/view/gallery_page.dart';
 import 'package:final_app_cu/view/home_page.dart';
 import 'package:final_app_cu/view/profile_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class BottomNavigationBarController extends GetxController {
@@ -9,7 +10,7 @@ class BottomNavigationBarController extends GetxController {
     const HomePage(),
     const GalleryPage(),
     MyProfile(
-      id: "4WDTdUjI7BX2A8wUUdSs",
+      id: FirebaseAuth.instance.currentUser!.uid,
       fromList: false,
     ),
   ].obs;
