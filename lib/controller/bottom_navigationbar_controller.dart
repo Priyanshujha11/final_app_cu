@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class BottomNavigationBarController extends GetxController {
   RxInt currentPage = 0.obs;
   final appPages = [
-    const HomePage(),
+    HomePage(),
     const GalleryPage(),
     // const LivePage(),
     MyProfile(

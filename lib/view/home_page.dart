@@ -11,8 +11,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
+  HomePage({super.key});
   // BottomNavigationBarController bottomNavigationBarController =
   //     Get.put(BottomNavigationBarController());
 
@@ -57,7 +56,7 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const AgendaScreen()));
+                                builder: (context) => AgendaScreen()));
                       },
                       child: Container(
                         decoration: BoxDecoration(

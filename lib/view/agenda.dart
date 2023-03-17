@@ -1,15 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_app_cu/view/app_base.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AgendaScreen extends StatefulWidget {
-  const AgendaScreen({super.key});
+  AgendaScreen({super.key});
 
   @override
   State<AgendaScreen> createState() => _AgendaScreenState();
 }
 
 class _AgendaScreenState extends State<AgendaScreen> {
+  int _ratingValue = 0;
+  int getValuesFromMap(Map map) {
+    for (String value in map.keys) {
+      if (value == USERID) return 1;
+    }
+    return -1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,8 +121,35 @@ class _AgendaScreenState extends State<AgendaScreen> {
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),
                                 ),
+                                RatingBar(
+                                    initialRating: getValuesFromMap(
+                                                data[index]['rating']) !=
+                                            -1
+                                        ? data[index]['rating'][USERID]
+                                        // .toDouble()
+                                        : 0,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: true,
+                                    itemCount: 5,
+                                    ratingWidget: RatingWidget(
+                                        full: const Icon(Icons.star,
+                                            color: Colors.orange),
+                                        half: const Icon(
+                                          Icons.star_half,
+                                          color: Colors.orange,
+                                        ),
+                                        empty: const Icon(
+                                          Icons.star_outline,
+                                          color: Colors.orange,
+                                        )),
+                                    onRatingUpdate: (value) {
+                                      setRating(value, data[index].id);
+                                      // setState(() {
+                                      //   _ratingValue = (value.ceil());
+                                      // });
+                                    }),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -122,5 +160,17 @@ class _AgendaScreenState extends State<AgendaScreen> {
             );
           }),
     );
+  }
+
+  void setRating(double rate, String agenda) async {
+    // var _firestore = Firetore.instance;
+    var coll = FirebaseFirestore.instance.collection('agenda');
+    DocumentReference reference = coll.doc(agenda);
+    DocumentSnapshot snapshot = await reference.get();
+    var data = snapshot.data();
+    print(data);
+    await reference.update({
+      'rating': {USERID: rate}
+    });
   }
 }
