@@ -1,7 +1,9 @@
 import 'package:final_app_cu/view/agenda.dart';
 import 'package:final_app_cu/view/emergency.dart';
 import 'package:final_app_cu/view/feedback.dart';
+import 'package:final_app_cu/view/liveview.dart';
 import 'package:final_app_cu/view/pdf_view.dart';
+import 'package:final_app_cu/view/social_media.dart';
 import 'package:final_app_cu/view/user_list.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,18 +21,23 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0xffD12123),
-        onPressed: () {
-          Get.to(const Pdf());
-        },
-        child: const Text(
-          'M2M',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 14,
+          backgroundColor: const Color(0xffD12123),
+          onPressed: () {
+            // Get.to(const Pdf());
+            Get.to(const LivePage());
+          },
+          child: Icon(
+            FontAwesomeIcons.fire,
+            color: Colors.white,
+          )
+          // const Text(
+          //   'M2M',
+          //   style: TextStyle(
+          //     fontWeight: FontWeight.w700,
+          //     fontSize: 14,
+          //   ),
+          // ),
           ),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 15.0,
@@ -57,9 +64,9 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12.0),
                           color: Colors.white,
                         ),
-                        child: Column(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(
                               FontAwesomeIcons.computer,
                               color: Color(0xffD12123),
@@ -123,6 +130,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8.0),
+            // SocialMediaScreen(),
             SizedBox(
               height: Get.width * 0.5 - 15,
               child: Row(

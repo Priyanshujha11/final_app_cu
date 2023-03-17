@@ -54,6 +54,8 @@ class _AppBaseState extends State<AppBase> {
                       icon: Icon(Icons.home), label: 'Home'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.image), label: 'Gallery'),
+                  // BottomNavigationBarItem(
+                  //     icon: Icon(Icons.live_help), label: 'Live'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.person), label: 'Profile'),
                 ],

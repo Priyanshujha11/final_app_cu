@@ -46,7 +46,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
               _name = data['name'];
               _email = data['gmail'];
               return Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(18.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -155,12 +155,40 @@ class _FeedbackFormState extends State<FeedbackForm> {
                                       ])),
                                   child: const Center(
                                       child: Text(
-                                    'SAVE',
+                                    'Save',
                                     style: TextStyle(
                                         fontSize: 20, color: Colors.white),
                                   )),
                                 ),
                               ),
+                      ),
+                      const SizedBox(height: 20.0),
+                      Center(
+                          child: const Text(
+                        "OR",
+                        style: TextStyle(fontSize: 20, color: Colors.red),
+                      )),
+                      const SizedBox(height: 20.0),
+                      Center(
+                        child: InkWell(
+                          onTap: () {},
+                          child: Container(
+                            height: 50,
+                            width: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(colors: [
+                                  const Color(0xffD12123).withOpacity(0.57),
+                                  const Color(0xffD12123)
+                                ])),
+                            child: const Center(
+                                child: Text(
+                              'Read More',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            )),
+                          ),
+                        ),
                       ),
                     ],
                   ),
