@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/view/app_base.dart';
+import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackForm extends StatefulWidget {
@@ -19,10 +20,12 @@ class _FeedbackFormState extends State<FeedbackForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
-      appBar: AppBar(
-        backgroundColor: const Color(0xffD12123),
-        title: const Text('Feedback Form'),
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: CuAppBar(
+          isHome: false,
+        ),
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<DocumentSnapshot>(
@@ -73,7 +76,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                         decoration: InputDecoration(
                           hintText: 'Enter your name',
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.grey.shade200,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(12),
@@ -101,7 +104,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                         onSaved: (value) => _email = value!,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.grey.shade200,
                           hintText: 'Enter your email',
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
@@ -127,7 +130,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                         maxLines: 5,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: Colors.grey.shade200,
                           hintText: 'Enter your feedback',
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,

@@ -1,3 +1,4 @@
+import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,11 +22,13 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
-      appBar: AppBar(
-        title: const Text("Support Center"),
-        backgroundColor: const Color(0xffD12123),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: CuAppBar(
+          isHome: false,
+        ),
       ),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -41,7 +44,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
               height: 40,
             ),
             const Text(
-              "Contact Us!",
+              "Contact Us",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -62,7 +65,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                       child: const Icon(Icons.call)),
                   prefixIconColor: const Color(0xffD12123),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Colors.grey.shade200,
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(12),
@@ -83,7 +86,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                       child: const Icon(Icons.call)),
                   prefixIconColor: const Color(0xffD12123),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Colors.grey.shade200,
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(12),
@@ -104,7 +107,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                       child: const Icon(Icons.call)),
                   prefixIconColor: const Color(0xffD12123),
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Colors.grey.shade200,
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(12),
@@ -143,7 +146,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                       ),
                     ),
                     child: const Text(
-                      "SOS!",
+                      "SOS",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

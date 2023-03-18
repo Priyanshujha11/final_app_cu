@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/view/full_page_image.dart';
+import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
@@ -11,7 +12,13 @@ class GalleryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: CuAppBar(
+          isHome: false,
+        ),
+      ),
+      backgroundColor: Colors.white,
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection('media').snapshots(),
           builder:
@@ -29,7 +36,7 @@ class GalleryPage extends StatelessWidget {
             dynamic data = snapshot.data!.docs;
 
             return Container(
-              color: const Color.fromRGBO(243, 232, 234, 1),
+              color: Colors.white,
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
@@ -49,7 +56,7 @@ class GalleryPage extends StatelessWidget {
                             imgSrc: data[index]['url'].toString(),
                             title: data[index]['desc'].toString(),
                             desc: data[index]['desc'].toString(),
-                          org: data[index]['original'].toString(),
+                            org: data[index]['original'].toString(),
                           ),
                         );
                       },

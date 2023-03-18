@@ -41,102 +41,114 @@ class _MyVerifyState extends State<MyVerify> {
       ),
     );
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Colors.black,
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              children: [
+                Container(
+                  child: SizedBox(
+                    height: 80.0,
+                    child: Image.asset('assets/app-logo.png'),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  child: SizedBox(
+                    height: 80.0,
+                    child: Image.asset('assets/cu-logo.png'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        elevation: 0,
-      ),
-      body: Container(
-        margin: const EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/giphy.gif',
-                width: 150,
-                height: 150,
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              const Text(
-                "Phone Verification",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                "We need to register your phone without getting started!",
-                style: TextStyle(
-                  fontSize: 16,
+        body: Container(
+          margin: const EdgeInsets.only(left: 25, right: 25),
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/giphy.gif',
+                  width: 150,
+                  height: 150,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Pinput(
-                length: 6,
-                // defaultPinTheme: defaultPinTheme,
-                // focusedPinTheme: focusedPinTheme,
-                // submittedPinTheme: submittedPinTheme,
-                controller: _pinEditingController,
-                showCursor: true,
-                onCompleted: (pin) => print(pin),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xffD12123),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      setState(() {
-                        auth.usernewId = widget.phone;
-                      });
-                      auth.verifyOTP(
-                        context,
-                        widget.verificationId,
-                        _pinEditingController.text,
-                      );
-                    },
-                    child: const Text("Confirm your OTP")),
-              ),
-              Row(
-                children: [
-                  TextButton(
+                const SizedBox(
+                  height: 25,
+                ),
+                const Text(
+                  "Phone Verification",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "We need to register your phone without getting started!",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Pinput(
+                  length: 6,
+                  // defaultPinTheme: defaultPinTheme,
+                  // focusedPinTheme: focusedPinTheme,
+                  // submittedPinTheme: submittedPinTheme,
+                  controller: _pinEditingController,
+                  showCursor: true,
+                  onCompleted: (pin) => print(pin),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 45,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xffD12123),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
                       onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
+                        setState(() {
+                          auth.usernewId = widget.phone;
+                        });
+                        auth.verifyOTP(
                           context,
-                          'phone',
-                          (route) => false,
+                          widget.verificationId,
+                          _pinEditingController.text,
                         );
                       },
-                      child: const Text(
-                        "",
-                        style: TextStyle(color: Colors.black),
-                      ))
-                ],
-              )
-            ],
+                      child: const Text("Confirm your OTP")),
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            'phone',
+                            (route) => false,
+                          );
+                        },
+                        child: const Text(
+                          "",
+                          style: TextStyle(color: Colors.black),
+                        ))
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
