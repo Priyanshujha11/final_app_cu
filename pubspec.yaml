@@ -56,6 +56,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   gallery_saver: ^2.3.2
   flutter_secure_storage: ^8.0.0
+  awesome_dialog: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
   assets:
     - assets/bizconnect_splash.riv
     - assets/fonts/
+    - assets/social_media/
     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see

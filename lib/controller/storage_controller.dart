@@ -22,6 +22,6 @@ class StorageController {
     await storage.write(key: "phone", value: phone);
   }
   deleteAuth() async {
-    await storage.deleteAll();
+    await storage.delete(key: "phone");
   }
 }

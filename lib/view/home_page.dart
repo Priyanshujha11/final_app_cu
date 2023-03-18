@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../authcontroller.dart';
+import '../models/social_media.dart';
 
 class HomePage extends StatelessWidget {
   String greeting() {
@@ -64,7 +65,11 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const EmergencyHelpScreen()));
+                      builder: (context) => EmergencyHelpScreen(
+                            loPhone: USERDATA != null
+                                ? USERDATA!['lo_details'] ?? "+91-775-7543-201"
+                                : "+91-775-7543-201",
+                          )));
             },
           ),
           FloatingActionButton.extended(
@@ -509,8 +514,16 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://www.facebook.com/chandigarhuniversitygharuan/');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            0])));
+
+                                        // launchUrlString(
+                                        //     'https://www.facebook.com/chandigarhuniversitygharuan/');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,
@@ -537,8 +550,15 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://www.instagram.com/chandigarhuniversity');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            1])));
+                                        // launchUrlString(
+                                        //     'https://www.instagram.com/chandigarhuniversity');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,
@@ -566,8 +586,15 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://twitter.com/Chandigarh_uni');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            2])));
+                                        // launchUrlString(
+                                        //     'https://twitter.com/Chandigarh_uni');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,
@@ -594,8 +621,15 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://www.linkedin.com/school/chandigarh-university/?originalSubdomain=in');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            3])));
+                                        // launchUrlString(
+                                        //     'https://www.linkedin.com/school/chandigarh-university/?originalSubdomain=in');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,
