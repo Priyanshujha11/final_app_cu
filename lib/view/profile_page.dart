@@ -111,10 +111,11 @@ class _MyProfileState extends State<MyProfile> {
                                       FontAwesomeIcons.building),
                                   TextContainer("Contact", data['contact'],
                                       FontAwesomeIcons.addressCard),
-                                  TextContainer("City", data['city'],
-                                      FontAwesomeIcons.city),
+
                                   TextContainer(
                                       "Email Id", data['gmail'], Icons.email),
+                                  TextContainer("LinkedIn", data['linkedin'],
+                                      FontAwesomeIcons.city),
 
                                   // buildTextField("Phone Number", phoneController),
                                   // buildTextField("Email ID", emailController),
@@ -226,7 +227,7 @@ Widget TextContainer(String labelText, String text, IconData icon) {
               ),
               Expanded(
                 child: Container(
-                  height: 55,
+                  height: labelText == 'LinkedIn' ? 80 : 55,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
