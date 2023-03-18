@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,16 +14,12 @@ class _AgendaScreenState extends State<AgendaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
-      appBar: AppBar(
-        backgroundColor: const Color(0xffD12123),
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(Icons.arrow_back_ios),
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: CuAppBar(
+          isHome: false,
         ),
-        title: const Text('AGENDA'),
       ),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection('agenda').snapshots(),
@@ -45,78 +42,81 @@ class _AgendaScreenState extends State<AgendaScreen> {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                   child: Card(
+                      elevation: 10,
                       child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              child: Text(
-                                data[index]['agenda'],
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w800),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.date_range),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Text(
+                                    data[index]['agenda'],
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w800),
+                                  ),
+                                ),
                                 const SizedBox(
-                                  width: 8,
+                                  height: 8,
                                 ),
-                                Text(
-                                  data[index]['date'],
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.date_range),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(
+                                      data[index]['date'],
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
                                 ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.location_on),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(
+                                      data[index]['where'],
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.timer_outlined),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(
+                                      data[index]['when'],
+                                      style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                const Icon(Icons.location_on),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  data[index]['where'],
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                const Icon(Icons.timer_outlined),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  data[index]['when'],
-                                  style: const TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  )),
+                          ),
+                        ],
+                      )),
                 );
               },
             );

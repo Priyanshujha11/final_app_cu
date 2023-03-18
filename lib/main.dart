@@ -21,7 +21,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen.navigate(
-        next: (_) => const IntroductionAnimationScreen(),
+        next: (_) => const MyPhone(),
         name: 'assets/bizconnect_splash.riv',
         until: () => Future.delayed(
           const Duration(

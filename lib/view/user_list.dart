@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/view/profile_page.dart';
+import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,10 +10,12 @@ class MyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(243, 232, 234, 1),
-      appBar: AppBar(
-        backgroundColor: const Color(0xffD12123),
-        title: const Text('Users'),
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: CuAppBar(
+          isHome: false,
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream:
@@ -31,7 +34,7 @@ class MyList extends StatelessWidget {
                 children: snapshot.data!.docs.map((DocumentSnapshot doc) {
               Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
               return Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: InkWell(
                   onTap: () {
                     Get.to(MyProfile(
@@ -39,50 +42,64 @@ class MyList extends StatelessWidget {
                       fromList: true,
                     ));
                   },
-                  child: Card(
-                    child: Container(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Row(
-                        children: [
-                          Center(
-                              child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 50,
-                              backgroundColor: Colors.grey.shade300,
-                              backgroundImage: NetworkImage(data['profile']),
-                            ),
-                          )),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
                               children: [
-                                Text(
-                                  '${data['name']}',
-                                  style: const TextStyle(
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.bold),
+                                Center(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: Colors.grey.shade300,
+                                    backgroundImage:
+                                        NetworkImage(data['profile']),
+                                  ),
+                                )),
+                                const SizedBox(
+                                  width: 15,
                                 ),
-                                const SizedBox(height: 10.0),
-                                Text(
-                                  '${data['companyname']}',
-                                  style: const TextStyle(fontSize: 20.0),
-                                ),
-                                const SizedBox(height: 10.0),
-                                Text(
-                                  '${data['designation']}',
-                                  style: const TextStyle(fontSize: 20.0),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '${data['name']}',
+                                        style: const TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 5.0),
+                                      Text(
+                                        '${data['companyname']}',
+                                        style: const TextStyle(fontSize: 14.0),
+                                      ),
+                                      const SizedBox(height: 5.0),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.grey.shade500,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
+                      Container(
+                        height: 1,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        color: Colors.grey,
+                      ),
+                    ],
                   ),
                 ),
               );

@@ -24,7 +24,6 @@ class _MyProfileState extends State<MyProfile> {
   String company = '';
   String phoneNumber = '';
   String emailId = '';
-  CuAppBar cubar = CuAppBar();
 
   TextEditingController designationController = TextEditingController();
   TextEditingController cityController = TextEditingController();
@@ -34,7 +33,11 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.fromList ? CuAppBar() : null,
+      appBar: widget.fromList
+          ? CuAppBar(
+              isHome: false,
+            )
+          : null,
       backgroundColor: Colors.white,
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
