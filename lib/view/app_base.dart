@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/controller/bottom_navigationbar_controller.dart';
 import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 String? USERID;
+var  USERDATA;
+
 
 class AppBase extends StatefulWidget {
   var usernewId;
+  var usernewData;
 
-  AppBase({required this.usernewId, super.key});
+  AppBase({required this.usernewId,required this.usernewData, super.key});
 
   @override
   State<AppBase> createState() => _AppBaseState();
@@ -22,6 +26,7 @@ class _AppBaseState extends State<AppBase> {
   Widget build(BuildContext context) {
     setState(() {
       USERID = widget.usernewId;
+      USERDATA = widget.usernewData;
     });
     return GetX<BottomNavigationBarController>(
       builder: (controller) {

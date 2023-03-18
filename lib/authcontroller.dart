@@ -6,7 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-class AuthController {
+var userdata;
+
+class AuthController extends GetxController {
+  getUserData(userID) async {
+    DocumentSnapshot res = await FirebaseFirestore.instance
+        .collection('companies')
+        .doc(userID.toString())
+        .get();
+    Map<String, dynamic> m = res.data() as Map<String, dynamic>;
+    // userdata = m;
+    print("^^^^^^^");
+    print(m);
+    print(m['name']);
+    print("^^^^^^^");
+    return m;
+  }
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   late final String usernewId;
   Future<bool> checkif(String? pho) async {
@@ -70,8 +86,11 @@ class AuthController {
           .doc(usernewId.toString())
           .update({'auth': currentUser.user!.uid});
 
+      var userDATA = await getUserData(usernewId);
+
       Get.offAll(AppBase(
         usernewId: usernewId,
+        usernewData : userDATA
       ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-verification-code') {

@@ -9,8 +9,10 @@ import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:final_app_cu/view/fullpagevier.dart';
 
+import '../controller/download_controller.dart';
+
 class LivePage extends StatelessWidget {
-  const LivePage({super.key});
+  LivePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -175,6 +177,8 @@ class PostCard extends StatelessWidget {
     return time;
   }
 
+  DownloadController _download = new DownloadController();
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -221,10 +225,26 @@ class PostCard extends StatelessWidget {
                   SizedBox(
                     width: 12,
                   ),
-                  Icon(
-                    FontAwesomeIcons.download,
-                    color: const Color(0xffD12123),
-                  ),
+                  IconButton(
+                    onPressed: () async {
+                      print("indide");
+                      bool res;
+                      if (type == "picture") {
+                        res = await _download.saveNetworkImage(imageURL);
+                      } else {
+                        res = await _download.saveNetworkVideo(videoURL);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: res
+                            ? Text("$type downnloaded")
+                            : Text("Failed to download ${type}"),
+                      ));
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.download,
+                      color: const Color(0xffD12123),
+                    ),
+                  )
                 ],
               ),
               SizedBox(
@@ -260,11 +280,11 @@ class PostCard extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 05,
+                height: 10,
               ),
               Text(description),
               SizedBox(
-                height: 4,
+                height: 8,
               ),
               Text(
                 readTimestamp(timestamp),
