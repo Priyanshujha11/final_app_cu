@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/controller/bottom_navigationbar_controller.dart';
 import 'package:final_app_cu/view/app_base.dart';
+import 'package:final_app_cu/view/notification_page.dart';
 import 'package:final_app_cu/view/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
   bool isHome;
@@ -65,6 +67,24 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
                     //     child: Image.asset('assets/chandigarh-university.png'),
                     //   ),
                     // ),
+                    isHome
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          NotificationPage()));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
+                              child: Icon(
+                                Icons.notifications,
+                                color: Color(0xffD12123).withOpacity(0.8),
+                              ),
+                            ),
+                          )
+                        : SizedBox.shrink(),
                     isHome == true
                         ? InkWell(
                             onTap: () {
@@ -76,7 +96,13 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
                             },
                             child: CircleAvatar(
                               radius: 25,
-                              backgroundImage: NetworkImage(data['profile']),
+                              backgroundColor:
+                                  Color(0xffD12123).withOpacity(0.5),
+                              //backgroundImage: NetworkImage(data['profile']),
+                              child: Icon(
+                                Icons.person_2,
+                                color: Colors.white,
+                              ),
                             ),
                           )
                         : SizedBox.shrink(),
