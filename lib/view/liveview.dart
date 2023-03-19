@@ -1,3 +1,5 @@
+import 'package:final_app_cu/controller/likecontroller.dart';
+import 'package:final_app_cu/view/app_base.dart';
 import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,7 +9,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/view/full_page_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:video_player/video_player.dart';
 import 'package:final_app_cu/view/fullpagevier.dart';
 
 import '../controller/download_controller.dart';
@@ -41,17 +42,22 @@ class LivePage extends StatelessWidget {
               );
             }
             dynamic data = snapshot.data!.docs;
+            print(data);
 
             return Container(
               color: Colors.white,
               child: ListView.builder(
-                shrinkWrap: true,
+                // shrinkWrap: true,
                 itemCount: data.length,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 6.0, vertical: 20.0),
                 itemBuilder: (context, index) {
                   if (data[index]['type'] == 'picture') {
+                    // liked = await checkUserLiked(widget.postID, USERID);
+                    // // if (liked) {}
+                    // likes = await getTotalLikes(widget.postID);
                     return PostCard(
+                        postID: data[index].id,
                         imageURL: data[index]['url'].toString(),
                         videoURL: "",
                         videoThumbnail: "",
@@ -63,6 +69,7 @@ class LivePage extends StatelessWidget {
                   } else if (data[index]['type'] == 'video') {
                     return PostCard(
                         imageURL: "",
+                        postID: data[index].id,
                         videoURL: data[index]['url'].toString(),
                         videoThumbnail: data[index]['thumbnail'].toString(),
                         title: data[index]['title'].toString(),
@@ -81,7 +88,7 @@ class LivePage extends StatelessWidget {
   }
 }
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   PostCard(
       {super.key,
       required this.imageURL,
@@ -90,6 +97,7 @@ class PostCard extends StatelessWidget {
       required this.title,
       required this.type,
       required this.likes,
+      required this.postID,
       required this.description,
       required this.timestamp});
   final String imageURL;
@@ -97,9 +105,28 @@ class PostCard extends StatelessWidget {
   final String videoThumbnail;
   final String title;
   final String description;
+  final String postID;
   final String type;
-  final int likes;
+  int likes;
   final Timestamp timestamp;
+
+  @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  late LikeController _likeController;
+  bool liked = false;
+  int likes = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    print("initstate");
+    _likeController = LikeController(postID: widget.postID, userID: USERID!);
+    _likeController.checkUserLiked(widget.postID, USERID!);
+    _likeController.updateLikeField(widget.likes);
+  }
 
   String readTimestamp(Timestamp timestamp) {
     // int timestamp = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
@@ -137,125 +164,159 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Container(
-          padding: EdgeInsets.all(12),
-          // height: 300,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                    color: const Color(0xffD12123),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              type == "picture"
-                  ? Image.network(
-                      imageURL,
-                      fit: BoxFit.fill,
-                      // height: 500,
-                      width: MediaQuery.of(context).size.width,
-                    )
-                  : VideoCard(
-                      videoPlayerController:
-                          VideoPlayerController.network(videoURL),
-                      thumbNailUrl: videoThumbnail),
-              SizedBox(
-                height: 08,
-              ),
-              Row(
+    return Obx(() {
+      return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: Container(
+              padding: EdgeInsets.all(12),
+              // height: 300,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    FontAwesomeIcons.heart,
-                    color: const Color(0xffD12123),
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                        color: const Color(0xffD12123),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    width: 12,
+                    height: 8,
                   ),
-                  IconButton(
-                    onPressed: () async {
-                      print("indide");
-                      bool res;
-                      if (type == "picture") {
-                        res = await _download.saveNetworkImage(imageURL);
-                      } else {
-                        res = await _download.saveNetworkVideo(videoURL);
-                      }
-                      Fluttertoast.showToast(
-                          msg: res
-                              ? "$type downloaded"
-                              : "Failed to download $type");
-                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      //     content: res
-                      //         ? Text("$type downnloaded")
-                      //         : Text("Failed to download ${type}"),
-                      //   ));
-                    },
-                    icon: Icon(
-                      FontAwesomeIcons.download,
-                      color: const Color(0xffD12123),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  likes == 1
-                      ? Text(
-                          likes.toString() + " Like",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xffD12123),
-                          ),
+                  widget.type == "picture"
+                      ? Image.network(
+                          widget.imageURL,
+                          fit: BoxFit.fill,
+                          // height: 500,
+                          width: MediaQuery.of(context).size.width,
                         )
-                      : Text(
-                          likes.toString() + " Likes",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xffD12123),
-                          ),
-                        ),
+                      : VideoCard(
+                          videoPlayerController:
+                              VideoPlayerController.network(widget.videoURL),
+                          thumbNailUrl: widget.videoThumbnail),
                   SizedBox(
-                    width: 12,
+                    height: 08,
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () async {
+                          setState(() {
+                            if (_likeController.alreadyLiked.value) {
+                              widget.likes -= 1;
+                              _likeController.removeUserLike(
+                                  widget.postID, USERID);
+                            } else {
+                              widget.likes += 1;
+                              _likeController.addUserLike(
+                                  widget.postID, USERID);
+                            }
+                            _likeController.updateLikeField(widget.likes);
+
+                            _likeController.alreadyLiked.value =
+                                !_likeController.alreadyLiked.value;
+
+                            Future.delayed(Duration(seconds: 5), () {
+                              _likeController.updateLikesInDB(widget.postID);
+                            });
+                          });
+                          // USERID
+                          // postID
+                        },
+                        icon: _likeController.alreadyLiked.value
+                            ? Icon(
+                                FontAwesomeIcons.solidHeart,
+                                color: const Color(0xffD12123),
+                              )
+                            : Icon(
+                                FontAwesomeIcons.heart,
+                                color: const Color(0xffD12123),
+                              ),
+                      ),
+                      SizedBox(
+                        width: 12,
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          bool res;
+                          if (widget.type == "picture") {
+                            res = await _download
+                                .saveNetworkImage(widget.imageURL);
+                          } else {
+                            res = await _download
+                                .saveNetworkVideo(widget.videoURL);
+                          }
+                          Fluttertoast.showToast(
+                              msg: res
+                                  ? "${widget.type} downloaded"
+                                  : "Failed to download ${widget.type}");
+                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          //     content: res
+                          //         ? Text("$type downnloaded")
+                          //         : Text("Failed to download ${type}"),
+                          //   ));
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.download,
+                          color: const Color(0xffD12123),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      widget.likes == 1
+                          ? Text(
+                              // widget.likes.toString()+ " Like",
+                              widget.likes.toString() + " Like",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xffD12123),
+                              ),
+                            )
+                          : Text(
+                              widget.likes.toString() + " Likes",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xffD12123),
+                              ),
+                            ),
+                      SizedBox(
+                        width: 12,
+                      ),
+                      Text(
+                        ((3)).toString() + " Downloads",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xffD12123),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(widget.description),
+                  SizedBox(
+                    height: 8,
                   ),
                   Text(
-                    ((3)).toString() + " Downloads",
+                    readTimestamp(widget.timestamp),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: const Color(0xffD12123),
                     ),
-                  )
+                  ),
                 ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(description),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                readTimestamp(timestamp),
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xffD12123),
-                ),
-              ),
-            ],
-          )),
-    );
+              )));
+    });
   }
 }
 
