@@ -1,4 +1,5 @@
 import 'package:final_app_cu/view/agenda.dart';
+import 'package:final_app_cu/view/app_base.dart';
 import 'package:final_app_cu/view/emergency.dart';
 import 'package:final_app_cu/view/feedback.dart';
 import 'package:final_app_cu/view/gallery_page.dart';
@@ -12,7 +13,30 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../authcontroller.dart';
+import '../models/social_media.dart';
+
 class HomePage extends StatelessWidget {
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Morning';
+    }
+    if (hour < 17) {
+      return 'Afternoon';
+    }
+    return 'Evening';
+  }
+
+  String greetMessage(userdata) {
+    String message = "Welcome Back";
+    if (userdata != null) {
+      String personName = userdata!["name"];
+      message = "Good ${greeting()}, $personName!!";
+    }
+    return message;
+  }
+
   HomePage({super.key});
   // BottomNavigationBarController bottomNavigationBarController =
   //     Get.put(BottomNavigationBarController());
@@ -41,7 +65,11 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const EmergencyHelpScreen()));
+                      builder: (context) => EmergencyHelpScreen(
+                            loPhone: USERDATA != null
+                                ? USERDATA!['lo_details'] ?? "+91-775-7543-201"
+                                : "+91-775-7543-201",
+                          )));
             },
           ),
           FloatingActionButton.extended(
@@ -70,10 +98,10 @@ class HomePage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 50,
                 child: Text(
-                  'Good Evening, Adarsh',
+                  greetMessage(USERDATA),
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 25.0,
@@ -397,7 +425,7 @@ class HomePage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LivePage()));
+                                  builder: (context) => LivePage()));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -486,8 +514,16 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://www.facebook.com/chandigarhuniversitygharuan/');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            0])));
+
+                                        // launchUrlString(
+                                        //     'https://www.facebook.com/chandigarhuniversitygharuan/');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,
@@ -514,8 +550,15 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://www.instagram.com/chandigarhuniversity');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            1])));
+                                        // launchUrlString(
+                                        //     'https://www.instagram.com/chandigarhuniversity');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,
@@ -543,8 +586,15 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://twitter.com/Chandigarh_uni');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            2])));
+                                        // launchUrlString(
+                                        //     'https://twitter.com/Chandigarh_uni');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,
@@ -571,8 +621,15 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        launchUrlString(
-                                            'https://www.linkedin.com/school/chandigarh-university/?originalSubdomain=in');
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SocialMediaPage(
+                                                        model: socialMediaData[
+                                                            3])));
+                                        // launchUrlString(
+                                        //     'https://www.linkedin.com/school/chandigarh-university/?originalSubdomain=in');
                                       },
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.white,

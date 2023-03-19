@@ -241,14 +241,17 @@ class _SignUPState extends State<SignUP> {
                                   .collection('companies')
                                   .doc(widget.usernewId)
                                   .update(res);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AppBase(
-                                    usernewId: widget.usernewId,
-                                  ),
-                                ),
-                              );
+
+                              //TODO: call getData and push to app base
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => AppBase(
+                              //       usernewId: widget.usernewId,
+                              //       usernewData: ,
+                              //     ),
+                              //   ),
+                              // );
                             }
                           },
                           child: Container(

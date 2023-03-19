@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_app_cu/phone.dart';
 import 'package:final_app_cu/verify.dart';
 import 'package:final_app_cu/view/app_base.dart';
 import 'package:final_app_cu/view/signup.dart';
@@ -7,7 +8,24 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import 'controller/storage_controller.dart';
+
 class AuthController extends GetxController {
+  TextEditingController designation = TextEditingController();
+  StorageController _storageController = new StorageController();
+  getUserData(userID) async {
+    DocumentSnapshot res = await FirebaseFirestore.instance
+        .collection('companies')
+        .doc(userID.toString())
+        .get();
+    Map<String, dynamic> m = res.data() as Map<String, dynamic>;
+    print("^^^^^^^");
+    print(m);
+    print(m['name']);
+    print("^^^^^^^");
+    return m;
+  }
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? usernewId;
   Future<bool> checkif(String? pho) async {
@@ -73,6 +91,13 @@ class AuthController extends GetxController {
         "contact": phone,
       });
 
+      var userDATA = await getUserData(usernewId);
+
+      await _storageController.addForAuth(usernewId);
+      //TODO: Check condition and navigate accordingly
+      ///if(check)
+      Get.offAll(AppBase(usernewId: phone, usernewData: userDATA));
+      ////esle
       Get.offAll(SignUP(
         usernewId: phone,
       ));
@@ -83,5 +108,11 @@ class AuthController extends GetxController {
         Fluttertoast.showToast(msg: "Incorrect OTP");
       }
     }
+  }
+
+  void logout() {
+    _storageController.deleteAuth();
+    auth.signOut();
+    Get.offAll(const MyPhone());
   }
 }

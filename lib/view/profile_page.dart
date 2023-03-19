@@ -117,6 +117,37 @@ class _MyProfileState extends State<MyProfile> {
                                   TextContainer("LinkedIn", data['linkedin'],
                                       FontAwesomeIcons.city),
 
+                                  // SizedBox(
+                                  //   height: 8,
+                                  // ),
+                                  // IconButton(
+                                  //   onPressed: () {},
+                                  //   icon:
+                                  // ),
+                                  InkWell(
+                                    onTap: () {
+                                      // TODO: Call logout here
+                                      auth.logout();
+                                      print("INSIDE LOGOUT");
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons
+                                              .arrowRightFromBracket,
+                                          color: Colors.red,
+                                        ),
+                                        Text(
+                                          "Logout",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+
                                   // buildTextField("Phone Number", phoneController),
                                   // buildTextField("Email ID", emailController),
                                 ],
