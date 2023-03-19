@@ -1,4 +1,5 @@
 import 'package:final_app_cu/widgets/cu_app_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +10,10 @@ import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:final_app_cu/view/fullpagevier.dart';
 
+import '../controller/download_controller.dart';
+
 class LivePage extends StatelessWidget {
-  const LivePage({super.key});
+  LivePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,27 +60,6 @@ class LivePage extends StatelessWidget {
                         type: data[index]['type'].toString(),
                         description: data[index]['desc'].toString(),
                         timestamp: data[index]['timestamp']);
-                    // return GestureDetector(
-                    //   onTap: () {
-                    //     Get.to(
-                    //       FullPageImage(
-                    //         imgSrc: data[index]['url'].toString(),
-                    //         title: data[index]['desc'].toString(),
-                    //         desc: data[index]['desc'].toString(),
-                    //         org: data[index]['original'].toString(),
-                    //       ),
-                    //     );
-                    //   },
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.grey[200],
-                    //       borderRadius: BorderRadius.circular(6.0),
-                    //       image: DecorationImage(
-                    //         image: NetworkImage(data[index]['url'].toString()),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // );
                   } else if (data[index]['type'] == 'video') {
                     return PostCard(
                         imageURL: "",
@@ -88,30 +70,6 @@ class LivePage extends StatelessWidget {
                         likes: data[index]['likes'],
                         description: data[index]['desc'].toString(),
                         timestamp: data[index]['timestamp']);
-                    // return GestureDetector(
-                    //   onTap: () {
-                    //     Get.to(
-                    //       VideoCard(
-                    //         videoPlayerController:
-                    //             VideoPlayerController.network(
-                    //           data[index]['url'].toString(),
-                    //         ),
-                    //         thumbNailUrl: data[index]['thumbnail'].toString(),
-                    //       ),
-                    //     );
-                    //   },
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.grey[200],
-                    //       borderRadius: BorderRadius.circular(6.0),
-                    //       image: DecorationImage(
-                    //         image: NetworkImage(
-                    //           data[index]['thumbnail'].toString(),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // );
                   } else {
                     return Container(); // handle other types of media
                   }
@@ -175,6 +133,8 @@ class PostCard extends StatelessWidget {
     return time;
   }
 
+  DownloadController _download = new DownloadController();
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -221,10 +181,30 @@ class PostCard extends StatelessWidget {
                   SizedBox(
                     width: 12,
                   ),
-                  Icon(
-                    FontAwesomeIcons.download,
-                    color: const Color(0xffD12123),
-                  ),
+                  IconButton(
+                    onPressed: () async {
+                      print("indide");
+                      bool res;
+                      if (type == "picture") {
+                        res = await _download.saveNetworkImage(imageURL);
+                      } else {
+                        res = await _download.saveNetworkVideo(videoURL);
+                      }
+                      Fluttertoast.showToast(
+                          msg: res
+                              ? "$type downloaded"
+                              : "Failed to download $type");
+                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      //     content: res
+                      //         ? Text("$type downnloaded")
+                      //         : Text("Failed to download ${type}"),
+                      //   ));
+                    },
+                    icon: Icon(
+                      FontAwesomeIcons.download,
+                      color: const Color(0xffD12123),
+                    ),
+                  )
                 ],
               ),
               SizedBox(
@@ -260,11 +240,11 @@ class PostCard extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 05,
+                height: 10,
               ),
               Text(description),
               SizedBox(
-                height: 4,
+                height: 8,
               ),
               Text(
                 readTimestamp(timestamp),

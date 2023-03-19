@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/view/app_base.dart';
 import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class FeedbackForm extends StatefulWidget {
   const FeedbackForm({super.key});
@@ -174,7 +175,10 @@ class _FeedbackFormState extends State<FeedbackForm> {
                       const SizedBox(height: 20.0),
                       Center(
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            launchUrlString(
+                                "https://docs.google.com/forms/d/e/1FAIpQLScuchottrchmHMguCAKLeTdAa3Ia96AGuI3iuwb9Fohg74X3Q/viewform?usp=sf_link");
+                          },
                           child: Container(
                             height: 50,
                             width: 250,
@@ -186,7 +190,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                                 ])),
                             child: const Center(
                                 child: Text(
-                              'Read More',
+                              'Answer a detailed form',
                               style:
                                   TextStyle(fontSize: 20, color: Colors.white),
                             )),

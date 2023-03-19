@@ -116,6 +116,37 @@ class _MyProfileState extends State<MyProfile> {
                                   TextContainer(
                                       "Email Id", data['gmail'], Icons.email),
 
+                                  // SizedBox(
+                                  //   height: 8,
+                                  // ),
+                                  // IconButton(
+                                  //   onPressed: () {},
+                                  //   icon:
+                                  // ),
+                                  InkWell(
+                                    onTap: () {
+                                      // TODO: Call logout here
+                                      auth.logout();
+                                      print("INSIDE LOGOUT");
+                                    },
+                                    child: const Column(
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons
+                                              .arrowRightFromBracket,
+                                          color: Colors.red,
+                                        ),
+                                        Text(
+                                          "Logout",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+
                                   // buildTextField("Phone Number", phoneController),
                                   // buildTextField("Email ID", emailController),
                                 ],
