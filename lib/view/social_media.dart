@@ -86,7 +86,7 @@ class SocialMediaPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              height: 12,
+                              height: 40,
                             ),
                             SizedBox(
                               height: Get.width * 0.5 - 15,

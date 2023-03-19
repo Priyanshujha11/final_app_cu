@@ -17,7 +17,14 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../authcontroller.dart';
 import '../models/social_media.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   String greeting() {
     var hour = DateTime.now().hour;
     if (hour < 12) {
@@ -33,17 +40,95 @@ class HomePage extends StatelessWidget {
     String message = "Welcome Back";
     if (userdata != null) {
       String personName = userdata!["name"];
-      message = "Good ${greeting()}, $personName!!";
+      message = "Good ${greeting()}, $personName!";
     }
     return message;
   }
 
-  HomePage({super.key});
-  // BottomNavigationBarController bottomNavigationBarController =
-  //     Get.put(BottomNavigationBarController());
+  void showNoti(BuildContext context, String name) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          content: Container(
+            height: Get.size.height * 0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 2,
+                    ),
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.close))
+                  ],
+                ),
+                Center(
+                  child: CircleAvatar(
+                    radius: 40.0,
+                    backgroundImage:
+                        AssetImage('assets/social_media/sandhu.jpeg'),
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Text(
+                  '\nWelcome, $name!\n',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'As Chancellor, I am thrilled to extend my warmest greetings to you all for attending CAB\'23 on behalf of Chandigarh University. We hope you have a fantastic time and enjoy the event.',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    '\nSatnam Singh Sandhu,',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    'Founder Chancellor\n',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(255, 89, 73, 1),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
+  // BottomNavigationBarController bottomNavigationBarController =
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration.zero, () => showNoti(context, USERDATA!['name']));
+    print(DateTime.now().hour.toString() +
+        ":" +
+        DateTime.now().minute.toString());
     return Scaffold(
         backgroundColor: Colors.white,
         floatingActionButtonLocation: ExpandableFab.location,
@@ -98,7 +183,7 @@ class HomePage extends StatelessWidget {
                         builder: (context) => AboutPage(
                               model: SocialMediaModel(
                                   desc:
-                                      "Dev.ify is a service-based company specializing in website and application development as well as marketing solutions.Our team of skilled professionals delivers customized solutions that meet the unique requirements of our clients.We use the latest tools and techniques to ensure that your website or application is visually appealing, functional, secure, and scalable.At Dev.ify, we are committed to providing exceptional services at competitive prices to help our clients achieve their goals.",
+                                      "Dev.ify is a service-based company specializing in website and application development as well as marketing solutions.Our team of skilled professionals delivers customized solutions that meet the unique requirements of our clients.We use the latest tools and techniques to ensure that your website or application is visually appealing, functional, secure, and scalable.",
                                   name: "Dev.ify",
                                   profileImage:
                                       "assets/social_media/devify.jpeg",
@@ -412,7 +497,7 @@ class HomePage extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    socialMediaHandle(context, "Sandhu",
+                                    socialMediaHandle(context, "Mr. Chancellor",
                                         "assets/social_media/sandhu.jpeg", 0),
                                     const SizedBox(
                                       width: 25.0,
