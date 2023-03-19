@@ -55,9 +55,9 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(20.0),
           ),
           content: Container(
-            height: 350.0,
+            height: Get.size.height * 0.5,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Row(
@@ -73,10 +73,12 @@ class _HomePageState extends State<HomePage> {
                         child: Icon(Icons.close))
                   ],
                 ),
-                CircleAvatar(
-                  radius: 40.0,
-                  backgroundImage:
-                      AssetImage('assets/social_media/sandhu.jpeg'),
+                Center(
+                  child: CircleAvatar(
+                    radius: 40.0,
+                    backgroundImage:
+                        AssetImage('assets/social_media/sandhu.jpeg'),
+                  ),
                 ),
                 SizedBox(height: 10.0),
                 Text(
@@ -91,6 +93,25 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    '\nSatnam Singh Sandhu,',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    'Founder Chancellor\n',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(255, 89, 73, 1),
+                    ),
                   ),
                 )
               ],
