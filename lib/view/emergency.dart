@@ -55,7 +55,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Row(
+              Row(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 25.0),
@@ -98,7 +98,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Row(
+              Row(
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 25.0),

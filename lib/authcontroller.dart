@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/phone.dart';
 import 'package:final_app_cu/verify.dart';
 import 'package:final_app_cu/view/app_base.dart';
+import 'package:final_app_cu/view/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 import 'controller/storage_controller.dart';
 
 class AuthController extends GetxController {
+  TextEditingController designation = TextEditingController();
   StorageController _storageController = new StorageController();
   getUserData(userID) async {
     DocumentSnapshot res = await FirebaseFirestore.instance
@@ -25,7 +27,7 @@ class AuthController extends GetxController {
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-  late final String usernewId;
+  String? usernewId;
   Future<bool> checkif(String? pho) async {
     bool toret = false;
     var coll = FirebaseFirestore.instance.collection('companies');
@@ -41,28 +43,29 @@ class AuthController extends GetxController {
   Future<void> signInWithPhone(BuildContext context, String phoneNumber) async {
     try {
       usernewId = "+91$phoneNumber";
-      if (await checkif(usernewId)) {
-        await auth.verifyPhoneNumber(
-          phoneNumber: "+91$phoneNumber",
-          verificationCompleted: (PhoneAuthCredential credential) async {
-            await auth.signInWithCredential(credential);
-          },
-          verificationFailed: (e) {
-            Fluttertoast.showToast(msg: e.message!);
-          },
-          codeSent: ((String verificationId, int? resendToken) async {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        MyVerify(verificationId, "+91$phoneNumber")));
-          }),
-          codeAutoRetrievalTimeout: (String verificationId) {},
-        );
-      } else {
-        Fluttertoast.showToast(
-            msg: 'You are not authorised to access the application');
-      }
+      //if (await checkif(usernewId)) {
+      await auth.verifyPhoneNumber(
+        phoneNumber: "+91$phoneNumber",
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await auth.signInWithCredential(credential);
+        },
+        verificationFailed: (e) {
+          Fluttertoast.showToast(msg: e.message!);
+        },
+        codeSent: ((String verificationId, int? resendToken) async {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MyVerify(verificationId, usernewId!)));
+        }),
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+      update();
+      //}
+      //  else {
+      //   Fluttertoast.showToast(
+      //       msg: 'You are not authorised to access the application');
+      // }
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(msg: e.message!);
     }
@@ -71,6 +74,7 @@ class AuthController extends GetxController {
   Future<void> verifyOTP(
     BuildContext context,
     String verificationId,
+    String phone,
     String userOTP,
   ) async {
     try {
@@ -79,19 +83,24 @@ class AuthController extends GetxController {
         smsCode: userOTP,
       );
       var currentUser = await auth.signInWithCredential(credential);
-      print('++++++++++++');
-      print(usernewId);
-      print('++++++++++++');
       await FirebaseFirestore.instance
           .collection('companies')
           .doc(usernewId.toString())
-          .update({'auth': currentUser.user!.uid});
+          .set({
+        'auth': currentUser.user!.uid,
+        "contact": phone,
+      });
 
       var userDATA = await getUserData(usernewId);
 
       await _storageController.addForAuth(usernewId);
-
-      Get.offAll(AppBase(usernewId: usernewId, usernewData: userDATA));
+      //TODO: Check condition and navigate accordingly
+      ///if(check)
+      Get.offAll(AppBase(usernewId: phone, usernewData: userDATA));
+      ////esle
+      Get.offAll(SignUP(
+        usernewId: phone,
+      ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-verification-code') {
         Fluttertoast.showToast(msg: "Incorrect OTP");

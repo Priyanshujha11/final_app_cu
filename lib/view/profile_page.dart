@@ -111,10 +111,11 @@ class _MyProfileState extends State<MyProfile> {
                                       FontAwesomeIcons.building),
                                   TextContainer("Contact", data['contact'],
                                       FontAwesomeIcons.addressCard),
-                                  TextContainer("City", data['city'],
-                                      FontAwesomeIcons.city),
+
                                   TextContainer(
                                       "Email Id", data['gmail'], Icons.email),
+                                  TextContainer("LinkedIn", data['linkedin'],
+                                      FontAwesomeIcons.city),
 
                                   // SizedBox(
                                   //   height: 8,
@@ -129,7 +130,7 @@ class _MyProfileState extends State<MyProfile> {
                                       auth.logout();
                                       print("INSIDE LOGOUT");
                                     },
-                                    child: const Column(
+                                    child: Column(
                                       children: [
                                         Icon(
                                           FontAwesomeIcons
@@ -257,7 +258,7 @@ Widget TextContainer(String labelText, String text, IconData icon) {
               ),
               Expanded(
                 child: Container(
-                  height: 55,
+                  height: labelText == 'LinkedIn' ? 80 : 55,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),

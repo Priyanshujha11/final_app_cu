@@ -43,6 +43,7 @@ class _MyVerifyState extends State<MyVerify> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
@@ -126,6 +127,7 @@ class _MyVerifyState extends State<MyVerify> {
                         auth.verifyOTP(
                           context,
                           widget.verificationId,
+                          widget.phone,
                           _pinEditingController.text,
                         );
                       },

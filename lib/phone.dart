@@ -27,6 +27,7 @@ class _MyPhoneState extends State<MyPhone> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: Padding(
