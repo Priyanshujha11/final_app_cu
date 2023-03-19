@@ -215,12 +215,13 @@ class _PostCardState extends State<PostCard> {
                               _likeController.addUserLike(
                                   widget.postID, USERID);
                             }
-                            _likeController.updateLikeField(widget.likes);
 
-                            _likeController.alreadyLiked.value =
-                                !_likeController.alreadyLiked.value;
-
-                            Future.delayed(Duration(seconds: 5), () {
+                            setState(() {
+                              _likeController.updateLikeField(widget.likes);
+                              _likeController.alreadyLiked.value =
+                                  !_likeController.alreadyLiked.value;
+                            });
+                            Future.delayed(Duration(seconds: 2), () {
                               _likeController.updateLikesInDB(widget.postID);
                             });
                           });

@@ -32,7 +32,7 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
-    print("|||||||"+widget.id.toString()+"|||||");
+    print("|||||||" + widget.id.toString() + "|||||");
     return Scaffold(
       appBar: widget.fromList
           ? CuAppBar(
@@ -67,7 +67,7 @@ class _MyProfileState extends State<MyProfile> {
                 Column(
                   children: [
                     Container(
-                      height: 250,
+                      height: 200,
                       decoration: const BoxDecoration(
                         color: Color.fromRGBO(243, 232, 234, 1),
                         borderRadius: BorderRadius.only(
@@ -85,7 +85,7 @@ class _MyProfileState extends State<MyProfile> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 100,
+                          height: 20,
                         ),
                         Container(
                           // height: MediaQuery.of(context).size.height * 0.65,
@@ -99,7 +99,7 @@ class _MyProfileState extends State<MyProfile> {
                               child: Column(
                                 children: [
                                   const SizedBox(
-                                    height: 100,
+                                    height: 150,
                                   ),
 
                                   TextContainer("Name", data['name'],
@@ -125,29 +125,36 @@ class _MyProfileState extends State<MyProfile> {
                                   //   onPressed: () {},
                                   //   icon:
                                   // ),
-                                  InkWell(
-                                    onTap: () {
-                                      // TODO: Call logout here
-                                      auth.logout();
-                                      print("INSIDE LOGOUT");
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Icon(
-                                          FontAwesomeIcons
-                                              .arrowRightFromBracket,
-                                          color: Colors.red,
-                                        ),
-                                        Text(
-                                          "Logout",
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(50, 10, 0, 0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        // TODO: Call logout here
+                                        auth.logout();
+                                        print("INSIDE LOGOUT");
+                                      },
+                                      child: Container(
+                                        height: 50,
+                                        width: 250,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: LinearGradient(colors: [
+                                              const Color(0xffD12123)
+                                                  .withOpacity(0.57),
+                                              const Color(0xffD12123)
+                                            ])),
+                                        child: const Center(
+                                            child: Text(
+                                          'Logout',
                                           style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                      ],
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        )),
+                                      ),
                                     ),
-                                  )
+                                  ),
 
                                   // buildTextField("Phone Number", phoneController),
                                   // buildTextField("Email ID", emailController),
@@ -183,16 +190,18 @@ class _MyProfileState extends State<MyProfile> {
                 ),
                 Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
                     Center(
                         child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CircleAvatar(
                         radius: 80,
-                        backgroundColor: Colors.grey.shade300,
-                        backgroundImage: NetworkImage(data['profile']),
+                        backgroundColor: Color.fromRGBO(243, 232, 234, 1),
+                        //backgroundImage: NetworkImage(data['profile']),
+                        child: Icon(
+                          Icons.person_2,
+                          color: Colors.white,
+                          size: 100,
+                        ),
                       ),
                     ))
                   ],

@@ -69,10 +69,12 @@ class LikeController extends GetxController {
     if (alreadyLiked) {
       print("ALready liked");
       return;
+    } else {
+      FirebaseFirestore.instance
+          .collection('likes')
+          .add({'userID': userID, 'postID': postID});
     }
-    FirebaseFirestore.instance
-        .collection('likes')
-        .add({'userID': userID, 'postID': postID});
+    update();
     // Future.delayed(Duration(seconds: 5));
     // getTotalLikes(postID)
   }
@@ -86,5 +88,6 @@ class LikeController extends GetxController {
         .collection('livestream')
         .doc(postID)
         .update({'likes': likesTotal.value});
+    update();
   }
 }
