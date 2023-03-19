@@ -86,7 +86,7 @@ class AboutPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              height: 40,
+                              height: 15,
                             ),
                             SizedBox(
                               height: Get.width * 0.5 - 15,

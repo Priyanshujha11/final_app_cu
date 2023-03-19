@@ -199,6 +199,9 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
