@@ -83,6 +83,21 @@ class AuthController extends GetxController {
         smsCode: userOTP,
       );
       var currentUser = await auth.signInWithCredential(credential);
+
+
+      bool checkForPreRegistration = await checkif(usernewId.toString());
+      if(checkForPreRegistration){
+        await  _storageController.addForAuth(usernewId);
+        await FirebaseFirestore.instance
+          .collection('companies')
+          .doc(usernewId.toString())
+         .update({'auth': currentUser.user!.uid});
+        var userDATA = await getUserData(usernewId);
+        Get.offAll(AppBase(usernewId: phone, usernewData: userDATA));
+
+      }
+      else{
+
       await FirebaseFirestore.instance
           .collection('companies')
           .doc(usernewId.toString())
@@ -90,17 +105,17 @@ class AuthController extends GetxController {
         'auth': currentUser.user!.uid,
         "contact": phone,
       });
-
-      var userDATA = await getUserData(usernewId);
-
-      await _storageController.addForAuth(usernewId);
-      //TODO: Check condition and navigate accordingly
-      ///if(check)
-      Get.offAll(AppBase(usernewId: phone, usernewData: userDATA));
-      ////esle
       Get.offAll(SignUP(
         usernewId: phone,
       ));
+      }
+
+
+      //TODO: Check condition and navigate accordingly
+      ///if(check)
+      ////esle
+      
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-verification-code') {
         Fluttertoast.showToast(msg: "Incorrect OTP");

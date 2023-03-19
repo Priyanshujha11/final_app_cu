@@ -32,6 +32,7 @@ class _MyProfileState extends State<MyProfile> {
 
   @override
   Widget build(BuildContext context) {
+    print("|||||||"+widget.id.toString()+"|||||");
     return Scaffold(
       appBar: widget.fromList
           ? CuAppBar(
@@ -42,7 +43,7 @@ class _MyProfileState extends State<MyProfile> {
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection('companies')
-              .doc(USERID)
+              .doc(widget.id.toString())
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {

@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models/social_media.dart';
 
-class SocialMediaPage extends StatelessWidget {
+class AboutPage extends StatelessWidget {
   getSocialMedia() {
     List<Widget> a = [];
     print(model.socialHandles.keys);
@@ -18,7 +18,7 @@ class SocialMediaPage extends StatelessWidget {
   }
 
   final SocialMediaModel model;
-  const SocialMediaPage({super.key, required this.model});
+  const AboutPage({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -154,20 +154,10 @@ class SocialMediaPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
                     radius: 80,
-                    backgroundColor: Colors.grey.shade900,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
-                      child: Image.asset(
-                        model.profileImage,
-                        height: 200,
-                        width: 200,
-                        // color: Colors.grey.shade300,
-                        fit: BoxFit.fill,
-                      ),
+                    backgroundColor: Colors.grey.shade300,
+                    backgroundImage: AssetImage(
+                      model.profileImage,
                     ),
-                    // backgroundImage: AssetImage(
-                    //   model.profileImage,
-                    // ),
                   ),
                 ))
               ],
@@ -202,6 +192,11 @@ class SocialMediaPage extends StatelessWidget {
         FontAwesomeIcons.facebook,
         color: Colors.blue.shade700,
       );
+    }
+    if (type == "website") {
+      return ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.asset("assets/social_media/devify.jpeg"));
     }
 
     return FontAwesomeIcons.internetExplorer;

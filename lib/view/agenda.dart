@@ -162,10 +162,12 @@ class _AgendaScreenState extends State<AgendaScreen> {
     var coll = FirebaseFirestore.instance.collection('agenda');
     DocumentReference reference = coll.doc(agenda);
     DocumentSnapshot snapshot = await reference.get();
-    var data = snapshot.data();
-    print(data);
+    var data = snapshot.data() as Map<String,dynamic>;
+    print(data['rating']);
+    data['rating'][USERID] = rate;
+    print(data['rating']);
     await reference.update({
-      'rating': {USERID: rate}
+      'rating': data['rating']
     });
   }
 }
