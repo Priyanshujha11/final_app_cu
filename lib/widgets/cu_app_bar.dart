@@ -79,7 +79,7 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                               child: Icon(
-                                Icons.notifications,
+                                Icons.notifications_active,
                                 color: Color(0xffD12123).withOpacity(0.8),
                               ),
                             ),

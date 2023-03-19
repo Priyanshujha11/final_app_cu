@@ -229,11 +229,11 @@ class _SignUPState extends State<SignUP> {
                       ),
                       Center(
                         child: InkWell(
-                          onTap: () async{
+                          onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               Map<String, dynamic> res = {
-                                "name": nameController.text,
+                                "name": 'Mr./Mrs. ' + nameController.text,
                                 "gmail": email.text,
                                 "designation": designation.text,
                                 "city": city.text,
@@ -241,15 +241,30 @@ class _SignUPState extends State<SignUP> {
                                 "linkedin": linkedin.text,
                                 "profile": "",
                               };
+                              Map<String, dynamic> noti = {
+                                "title":
+                                    "Hi, we welcome you to Chandigarh University's CAB'23!",
+                                "time": DateTime.now().hour.toString() +
+                                    ":" +
+                                    DateTime.now().minute.toString(),
+                              };
                               print(widget.usernewId);
                               FirebaseFirestore.instance
                                   .collection('companies')
                                   .doc(widget.usernewId)
                                   .update(res);
-                              await _storageController.addForAuth(widget.usernewId);
-                              var userDATA = await auth.getUserData(widget.usernewId);
-                              Get.offAll(AppBase(usernewId: widget.usernewId, usernewData: userDATA));
-
+                              FirebaseFirestore.instance
+                                  .collection('companies')
+                                  .doc(widget.usernewId)
+                                  .collection('noti')
+                                  .add(noti);
+                              await _storageController
+                                  .addForAuth(widget.usernewId);
+                              var userDATA =
+                                  await auth.getUserData(widget.usernewId);
+                              Get.offAll(AppBase(
+                                  usernewId: widget.usernewId,
+                                  usernewData: userDATA));
 
                               //TODO: call getData and push to app base
                               // Navigator.push(
