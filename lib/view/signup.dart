@@ -4,6 +4,9 @@ import 'package:final_app_cu/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import '../controller/storage_controller.dart';
+import '../authcontroller.dart';
+import 'package:get/get.dart';
 
 class SignUP extends StatefulWidget {
   String? usernewId;
@@ -15,6 +18,8 @@ class SignUP extends StatefulWidget {
 }
 
 class _SignUPState extends State<SignUP> {
+  AuthController auth = new AuthController();
+  final StorageController _storageController = new StorageController();
   TextEditingController nameController = TextEditingController();
   TextEditingController companyName = TextEditingController();
   TextEditingController city = TextEditingController();
@@ -224,7 +229,7 @@ class _SignUPState extends State<SignUP> {
                       ),
                       Center(
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async{
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               Map<String, dynamic> res = {
@@ -241,6 +246,10 @@ class _SignUPState extends State<SignUP> {
                                   .collection('companies')
                                   .doc(widget.usernewId)
                                   .update(res);
+                              await _storageController.addForAuth(widget.usernewId);
+                              var userDATA = await auth.getUserData(widget.usernewId);
+                              Get.offAll(AppBase(usernewId: widget.usernewId, usernewData: userDATA));
+
 
                               //TODO: call getData and push to app base
                               // Navigator.push(
