@@ -56,69 +56,55 @@ class _FeedbackFormState extends State<FeedbackForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        'assets/preview-unscreen.gif',
-                      ),
+                      const SizedBox(height: 20.0),
                       const Text(
-                        'Name',
+                        'We would like to have a detailed Feedback from your side',
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 5.0),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your name';
-                          }
-                          return null;
-                        },
-                        initialValue: _name,
-                        onSaved: (value) => _name = value!,
-                        decoration: InputDecoration(
-                          hintText: 'Enter your name',
-                          filled: true,
-                          fillColor: Colors.grey.shade200,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Center(
+                        child: InkWell(
+                          onTap: () async {
+                            String? url;
+                            var collection =
+                                FirebaseFirestore.instance.collection('forms');
+                            var querySnapshot = await collection.get();
+                            for (var queryDocumentSnapshot
+                                in querySnapshot.docs) {
+                              Map<String, dynamic> data =
+                                  queryDocumentSnapshot.data();
+                              url = data['url'];
+                            }
+                            print(url);
+                            launchUrlString(url!);
+                          },
+                          child: Container(
+                            height: 50,
+                            width: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(colors: [
+                                  const Color(0xffD12123).withOpacity(0.57),
+                                  const Color(0xffD12123)
+                                ])),
+                            child: const Center(
+                                child: Text(
+                              'Answer here',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            )),
                           ),
                         ),
                       ),
                       const SizedBox(height: 20.0),
-                      const Text(
-                        'Email',
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 5.0),
-                      TextFormField(
-                        initialValue: _email,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          if (!value.contains('@')) {
-                            return 'Please enter a valid email address';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) => _email = value!,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey.shade200,
-                          hintText: 'Enter your email',
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20.0),
-                      const Text(
-                        'Feedback',
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.bold),
-                      ),
+                      Center(
+                          child: const Text(
+                        "OR",
+                        style: TextStyle(fontSize: 20, color: Colors.red),
+                      )),
                       const SizedBox(height: 5.0),
                       TextFormField(
                         validator: (value) {
@@ -167,36 +153,6 @@ class _FeedbackFormState extends State<FeedbackForm> {
                               ),
                       ),
                       const SizedBox(height: 20.0),
-                      Center(
-                          child: const Text(
-                        "OR",
-                        style: TextStyle(fontSize: 20, color: Colors.red),
-                      )),
-                      const SizedBox(height: 20.0),
-                      Center(
-                        child: InkWell(
-                          onTap: () {
-                            launchUrlString(
-                                "https://docs.google.com/forms/d/e/1FAIpQLScuchottrchmHMguCAKLeTdAa3Ia96AGuI3iuwb9Fohg74X3Q/viewform?usp=sf_link");
-                          },
-                          child: Container(
-                            height: 50,
-                            width: 250,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                gradient: LinearGradient(colors: [
-                                  const Color(0xffD12123).withOpacity(0.57),
-                                  const Color(0xffD12123)
-                                ])),
-                            child: const Center(
-                                child: Text(
-                              'Answer a detailed form',
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            )),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
