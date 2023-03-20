@@ -43,7 +43,7 @@ class AuthController extends GetxController {
   Future<void> signInWithPhone(BuildContext context, String phoneNumber) async {
     try {
       usernewId = "+91$phoneNumber";
-      auth.setSettings(appVerificationDisabledForTesting: true);
+      //auth.setSettings(appVerificationDisabledForTesting: true);
       await auth.verifyPhoneNumber(
         phoneNumber: "+91$phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) async {

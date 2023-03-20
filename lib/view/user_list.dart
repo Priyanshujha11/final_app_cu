@@ -73,6 +73,7 @@ class MyList extends StatelessWidget {
                                       Text(
                                         '${data['name']}',
                                         style: const TextStyle(
+                                            overflow: TextOverflow.ellipsis,
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),

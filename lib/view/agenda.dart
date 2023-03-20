@@ -116,35 +116,35 @@ class _AgendaScreenState extends State<AgendaScreen> {
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                RatingBar(
-                                    initialRating: getValuesFromMap(
-                                                data[index]['rating']) !=
+                              ],
+                            ),
+                            RatingBar(
+                                initialRating:
+                                    getValuesFromMap(data[index]['rating']) !=
                                             -1
                                         ? data[index]['rating'][USERID]
                                         // .toDouble()
                                         : 0,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    ratingWidget: RatingWidget(
-                                        full: const Icon(Icons.star,
-                                            color: Colors.orange),
-                                        half: const Icon(
-                                          Icons.star_half,
-                                          color: Colors.orange,
-                                        ),
-                                        empty: const Icon(
-                                          Icons.star_outline,
-                                          color: Colors.orange,
-                                        )),
-                                    onRatingUpdate: (value) {
-                                      setRating(value, data[index].id);
-                                      // setState(() {
-                                      //   _ratingValue = (value.ceil());
-                                      // });
-                                    }),
-                              ],
-                            ),
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                ratingWidget: RatingWidget(
+                                    full: const Icon(Icons.star,
+                                        color: Colors.orange),
+                                    half: const Icon(
+                                      Icons.star_half,
+                                      color: Colors.orange,
+                                    ),
+                                    empty: const Icon(
+                                      Icons.star_outline,
+                                      color: Colors.orange,
+                                    )),
+                                onRatingUpdate: (value) {
+                                  setRating(value, data[index].id);
+                                  // setState(() {
+                                  //   _ratingValue = (value.ceil());
+                                  // });
+                                }),
                           ],
                         ),
                       ),
@@ -162,12 +162,10 @@ class _AgendaScreenState extends State<AgendaScreen> {
     var coll = FirebaseFirestore.instance.collection('agenda');
     DocumentReference reference = coll.doc(agenda);
     DocumentSnapshot snapshot = await reference.get();
-    var data = snapshot.data() as Map<String,dynamic>;
+    var data = snapshot.data() as Map<String, dynamic>;
     print(data['rating']);
     data['rating'][USERID] = rate;
     print(data['rating']);
-    await reference.update({
-      'rating': data['rating']
-    });
+    await reference.update({'rating': data['rating']});
   }
 }

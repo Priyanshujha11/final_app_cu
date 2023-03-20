@@ -102,7 +102,9 @@ class _MyProfileState extends State<MyProfile> {
                                     height: 150,
                                   ),
 
-                                  TextContainer("Name", data['name'],
+                                  TextContainer(
+                                      "Name",
+                                      'Mr./Mrs. ' + data['name'],
                                       FontAwesomeIcons.person),
                                   TextContainer("Company", data['companyname'],
                                       Icons.business),

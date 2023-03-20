@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EmergencyHelpScreen extends StatefulWidget {
-  const EmergencyHelpScreen({Key? key, required this.loPhone})
+  const EmergencyHelpScreen(
+      {Key? key, required this.loName, required this.loPhone})
       : super(key: key);
   final String loPhone;
+  final String loName;
 
   @override
   _EmergencyHelpScreenState createState() => _EmergencyHelpScreenState();
@@ -35,23 +37,29 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 20,
               ),
-              Image.asset(
-                'assets/contact.jpeg',
-                width: MediaQuery.of(context).size.width * 0.9,
+              Center(
+                child: Image.asset(
+                  'assets/contact.jpeg',
+                  width: MediaQuery.of(context).size.width * 0.9,
+                ),
               ),
               const SizedBox(
                 height: 40,
               ),
-              const Text(
-                "Contact Us",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffD12123),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: const Text(
+                  "Contact Us",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xffD12123),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -72,6 +80,18 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                 ],
               ),
               const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: Text(
+                  widget.loName,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xffD12123),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: TextFormField(

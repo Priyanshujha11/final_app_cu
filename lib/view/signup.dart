@@ -233,7 +233,7 @@ class _SignUPState extends State<SignUP> {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               Map<String, dynamic> res = {
-                                "name": 'Mr./Mrs. ' + nameController.text,
+                                "name": nameController.text,
                                 "gmail": email.text,
                                 "designation": designation.text,
                                 "city": city.text,

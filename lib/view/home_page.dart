@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
           content: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15.0),
             child: Container(
-              height: Get.size.height * 0.5,
+              height: Get.size.height * 0.5 + 50,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 30.0),
                   Text(
-                    'Welcome, $name!\n',
+                    'Welcome,' + 'Mr./Mrs. ' + '$name!\n',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Center(
                     child: Text(
-                      '\nSatnam Singh Sandhu,',
+                      '\nSatnam Singh Sandhu',
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -116,9 +116,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  )
                 ],
               ),
             ),
@@ -155,14 +152,18 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.call),
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EmergencyHelpScreen(
-                              loPhone: USERDATA != null
-                                  ? USERDATA!['lo_details'] ??
-                                      "+91-775-7543-201"
-                                  : "+91-775-7543-201",
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmergencyHelpScreen(
+                      loName: USERDATA != null
+                          ? USERDATA!['lo_name'] ?? 'Adarsh'
+                          : "Adarsh",
+                      loPhone: USERDATA != null
+                          ? USERDATA!['lo_details'] ?? "+91-775-7543-201"
+                          : "+91-775-7543-201",
+                    ),
+                  ),
+                );
               },
             ),
             FloatingActionButton.extended(
@@ -177,33 +178,33 @@ class _HomePageState extends State<HomePage> {
                         builder: (context) => const FeedbackForm()));
               },
             ),
-            FloatingActionButton.extended(
-              backgroundColor: Colors.red,
-              icon: const Icon(Icons.info),
-              label: Text(''),
-              isExtended: false,
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AboutPage(
-                              model: SocialMediaModel(
-                                  desc:
-                                      "Dev.ify is a service-based company specializing in website and application development as well as marketing solutions.Our team of skilled professionals delivers customized solutions that meet the unique requirements of our clients.We use the latest tools and techniques to ensure that your website or application is visually appealing, functional, secure, and scalable.",
-                                  name: "Dev.ify",
-                                  profileImage:
-                                      "assets/social_media/devify.jpeg",
-                                  // assets/social_media/sandhu.jpeg
-                                  socialHandles: {
-                                    'instagram':
-                                        "https://instagram.com/dev.ify?igshid=ZDdkNTZiNTM=",
-                                    'linkedin':
-                                        "https://www.linkedin.com/company/devify16/",
-                                    'website': "https://devify.co.in/"
-                                  }),
-                            )));
-              },
-            ),
+            // FloatingActionButton.extended(
+            //   backgroundColor: Colors.red,
+            //   icon: const Icon(Icons.info),
+            //   label: Text(''),
+            //   isExtended: false,
+            //   onPressed: () {
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //             builder: (context) => AboutPage(
+            //                   model: SocialMediaModel(
+            //                       desc:
+            //                           "Dev.ify is a service-based company specializing in website and application development as well as marketing solutions.Our team of skilled professionals delivers customized solutions that meet the unique requirements of our clients.We use the latest tools and techniques to ensure that your website or application is visually appealing, functional, secure, and scalable.",
+            //                       name: "Dev.ify",
+            //                       profileImage:
+            //                           "assets/social_media/devify.jpeg",
+            //                       // assets/social_media/sandhu.jpeg
+            //                       socialHandles: {
+            //                         'instagram':
+            //                             "https://instagram.com/dev.ify?igshid=ZDdkNTZiNTM=",
+            //                         'linkedin':
+            //                             "https://www.linkedin.com/company/devify16/",
+            //                         'website': "https://devify.co.in/"
+            //                       }),
+            //                 )));
+            //   },
+            // ),
           ],
         ),
         body: SingleChildScrollView(
@@ -503,8 +504,11 @@ class _HomePageState extends State<HomePage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    socialMediaHandle(context, "Mr. Chancellor",
-                                        "assets/social_media/sandhu.jpeg", 0),
+                                    socialMediaHandle(
+                                        context,
+                                        "Shri Satnam \nSingh Sandhu",
+                                        "assets/social_media/sandhu.jpeg",
+                                        0),
                                     const SizedBox(
                                       width: 25.0,
                                     ),

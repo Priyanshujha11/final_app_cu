@@ -45,133 +45,132 @@ class SocialMediaPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 100,
-                  ),
-                  Container(
-                    // height: MediaQuery.of(context).size.height * 0.65,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            radius: 80,
+                            backgroundColor: Colors.grey.shade900,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(80),
+                              child: Image.asset(
+                                model.profileImage,
+                                height: 200,
+                                width: 200,
+                                // color: Colors.grey.shade300,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            // backgroundImage: AssetImage(
+                            //   model.profileImage,
+                            // ),
+                          ),
+                        ))
+                      ],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 100,
-                            ),
-                            Text(
-                              model.name,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.red,
-                                fontSize: 24.0,
+                    Container(
+                      // height: MediaQuery.of(context).size.height * 0.65,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
                               ),
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
-                            Text(
-                              model.desc,
-                              // overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black,
-                                fontSize: 15.0,
+                              Text(
+                                model.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.red,
+                                  fontSize: 24.0,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
-                              height: Get.width * 0.5 - 15,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(colors: [
-                                          Colors.cyan.shade300,
-                                          Colors.cyan.shade600,
-                                          Colors.cyan.shade800
-                                        ]),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        color: Colors.cyan,
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            '  Where can you find us',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white,
-                                              fontSize: 24.0,
+                              SizedBox(
+                                height: 12,
+                              ),
+                              Text(
+                                model.desc,
+                                // overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              SizedBox(
+                                height: Get.width * 0.5 - 15,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(colors: [
+                                            Colors.cyan.shade300,
+                                            Colors.cyan.shade600,
+                                            Colors.cyan.shade800
+                                          ]),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          color: Colors.cyan,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            const Text(
+                                              '  Where can you find us',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                                fontSize: 24.0,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 25.0,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: getSocialMedia(),
-                                          ),
-                                        ],
+                                            const SizedBox(
+                                              height: 25.0,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: getSocialMedia(),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
             ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: 80,
-                    backgroundColor: Colors.grey.shade900,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
-                      child: Image.asset(
-                        model.profileImage,
-                        height: 200,
-                        width: 200,
-                        // color: Colors.grey.shade300,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    // backgroundImage: AssetImage(
-                    //   model.profileImage,
-                    // ),
-                  ),
-                ))
-              ],
-            )
           ],
         ),
       ),
