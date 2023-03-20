@@ -13,6 +13,7 @@ class MyVerify extends StatefulWidget {
 }
 
 class _MyVerifyState extends State<MyVerify> {
+  bool _buttonPressed = false;
   final TextEditingController _pinEditingController = TextEditingController();
   AuthController auth = AuthController();
   @override
@@ -120,18 +121,27 @@ class _MyVerifyState extends State<MyVerify> {
                           backgroundColor: const Color(0xffD12123),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           auth.usernewId = widget.phone;
+                          _buttonPressed = true;
                         });
-                        auth.verifyOTP(
+                        await auth.verifyOTP(
                           context,
                           widget.verificationId,
                           widget.phone,
                           _pinEditingController.text,
                         );
+                        setState(() {
+                          _buttonPressed = false;
+                        });
                       },
-                      child: const Text("Confirm your OTP")),
+                      child: _buttonPressed
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ))
+                          : Text("Confirm your OTP")),
                 ),
                 Row(
                   children: [

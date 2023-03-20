@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
 import 'package:final_app_cu/phone.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'bizconnect/introduction_animation/introduction_animation_screen.dart';
 
 void main() async {
@@ -26,6 +27,15 @@ void main() async {
   }
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+    await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+    // Default provider for Android is the Play Integrity provider. You can use the "AndroidProvider" enum to choose
+    // your preferred provider. Choose from:
+    // 1. debug provider
+    // 2. safety net provider
+    // 3. play integrity provider
+    androidProvider: AndroidProvider.debug,
+  );
   PushNotificationService().initialize();
   FirebaseMessaging.onBackgroundMessage(
       PushNotificationService().backgroundHandler);
