@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rive_splash_screen/rive_splash_screen.dart';
 import 'package:final_app_cu/phone.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'bizconnect/introduction_animation/introduction_animation_screen.dart';
 
 void main() async {
