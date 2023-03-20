@@ -11,6 +11,7 @@ class MyPhone extends StatefulWidget {
 }
 
 class _MyPhoneState extends State<MyPhone> {
+  bool verifyPressed = false;
   TextEditingController countryController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
@@ -19,6 +20,9 @@ class _MyPhoneState extends State<MyPhone> {
     // TODO: implement initState
     countryController.text = "+91";
     super.initState();
+    setState(() {
+      verifyPressed = false;
+    });
   }
 
   AuthController auth = AuthController();
@@ -138,10 +142,21 @@ class _MyPhoneState extends State<MyPhone> {
                             primary: Color(0xffD12123),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
-                        onPressed: () {
-                          auth.signInWithPhone(context, phoneController.text);
+                        onPressed: () async{
+                          setState(() {
+                          verifyPressed = true;
+                          });
+                          await auth.signInWithPhone(context, phoneController.text);
+                          // setState(() {
+                          // verifyPressed = false;
+                          // });
                         },
-                        child: Text("Verify")),
+                        child: verifyPressed
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ))
+                            : Text("Verify")),
                   )
                 ],
               ),

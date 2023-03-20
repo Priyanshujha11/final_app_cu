@@ -242,6 +242,7 @@ class _PostCardState extends State<PostCard> {
                       ),
                       IconButton(
                         onPressed: () async {
+                          Fluttertoast.showToast(msg: "Downloading...");
                           bool res;
                           if (widget.type == "picture") {
                             res = await _download
