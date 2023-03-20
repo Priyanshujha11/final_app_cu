@@ -43,7 +43,7 @@ class AuthController extends GetxController {
   Future<void> signInWithPhone(BuildContext context, String phoneNumber) async {
     try {
       usernewId = "+91$phoneNumber";
-      //if (await checkif(usernewId)) {
+      auth.setSettings(appVerificationDisabledForTesting: true);
       await auth.verifyPhoneNumber(
         phoneNumber: "+91$phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) async {
@@ -84,38 +84,31 @@ class AuthController extends GetxController {
       );
       var currentUser = await auth.signInWithCredential(credential);
 
-
       bool checkForPreRegistration = await checkif(usernewId.toString());
-      if(checkForPreRegistration){
-        await  _storageController.addForAuth(usernewId);
+      if (checkForPreRegistration) {
+        await _storageController.addForAuth(usernewId);
         await FirebaseFirestore.instance
-          .collection('companies')
-          .doc(usernewId.toString())
-         .update({'auth': currentUser.user!.uid});
+            .collection('companies')
+            .doc(usernewId.toString())
+            .update({'auth': currentUser.user!.uid});
         var userDATA = await getUserData(usernewId);
         Get.offAll(AppBase(usernewId: phone, usernewData: userDATA));
-
+      } else {
+        await FirebaseFirestore.instance
+            .collection('companies')
+            .doc(usernewId.toString())
+            .set({
+          'auth': currentUser.user!.uid,
+          "contact": phone,
+        });
+        Get.offAll(SignUP(
+          usernewId: phone,
+        ));
       }
-      else{
-
-      await FirebaseFirestore.instance
-          .collection('companies')
-          .doc(usernewId.toString())
-          .set({
-        'auth': currentUser.user!.uid,
-        "contact": phone,
-      });
-      Get.offAll(SignUP(
-        usernewId: phone,
-      ));
-      }
-
 
       //TODO: Check condition and navigate accordingly
       ///if(check)
       ////esle
-      
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-verification-code') {
         Fluttertoast.showToast(msg: "Incorrect OTP");
