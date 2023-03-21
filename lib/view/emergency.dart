@@ -4,10 +4,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 class EmergencyHelpScreen extends StatefulWidget {
   const EmergencyHelpScreen(
-      {Key? key, required this.loName, required this.loPhone})
+      {Key? key,
+      required this.loName,
+      required this.loPhone,
+      required this.otherCon})
       : super(key: key);
   final String loPhone;
   final String loName;
+  final List<dynamic> otherCon;
 
   @override
   _EmergencyHelpScreenState createState() => _EmergencyHelpScreenState();
@@ -139,11 +143,11 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                     const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                 child: TextFormField(
                   readOnly: true,
-                  initialValue: "+91-987-6543-201",
+                  initialValue: widget.otherCon[0].toString(),
                   decoration: InputDecoration(
                     prefixIcon: InkWell(
                         onTap: () {
-                          _makeEmergencyCall("+91-987-6543-201");
+                          _makeEmergencyCall(widget.otherCon[0].toString());
                         },
                         child: const Icon(Icons.call)),
                     prefixIconColor: const Color(0xffD12123),
@@ -160,11 +164,11 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: TextFormField(
                   readOnly: true,
-                  initialValue: '+91-625-0523-201',
+                  initialValue: widget.otherCon[1].toString(),
                   decoration: InputDecoration(
                     prefixIcon: InkWell(
                         onTap: () {
-                          _makeEmergencyCall('+916250523201');
+                          _makeEmergencyCall(widget.otherCon[1].toString());
                         },
                         child: const Icon(Icons.call)),
                     prefixIconColor: const Color(0xffD12123),
@@ -195,7 +199,7 @@ class _EmergencyHelpScreenState extends State<EmergencyHelpScreen> {
                     // ),
                     ElevatedButton(
                       onPressed: () {
-                        _makeEmergencyCall("+911234567890");
+                        _makeEmergencyCall(widget.otherCon[2].toString());
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffD12123),

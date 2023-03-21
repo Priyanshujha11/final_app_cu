@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/authcontroller.dart';
 import 'package:final_app_cu/view/app_base.dart';
@@ -33,6 +35,7 @@ class _MyProfileState extends State<MyProfile> {
   @override
   Widget build(BuildContext context) {
     print("|||||||" + widget.id.toString() + "|||||");
+
     return Scaffold(
       appBar: widget.fromList
           ? CuAppBar(

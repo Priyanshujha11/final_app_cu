@@ -84,14 +84,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 30.0),
                   Text(
-                    'Welcome,' + 'Mr./Mrs. ' + '$name!\n',
+                    'Welcome,' + 'Dear ' + '$name!\n',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
-                    'As Chancellor, I am thrilled to extend my warmest greetings to you all for attending CAB\'23 on behalf of Chandigarh University. We hope you have a fantastic time and enjoy the event.',
+                    "As Chancellor of this esteemed institution, it is my distinct pleasure to welcome our distinguished guests to CAB'23. We look forward to your insights and contributions to this important gathering.",
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.normal,
@@ -161,6 +161,18 @@ class _HomePageState extends State<HomePage> {
                       loPhone: USERDATA != null
                           ? USERDATA!['lo_details'] ?? "+91-775-7543-201"
                           : "+91-775-7543-201",
+                      otherCon: USERDATA['otherCon'] != null
+                          ? USERDATA['otherCon'] ??
+                              [
+                                "+91-775-7543-201",
+                                "+91-775-7543-201",
+                                "+91-775-7543-201",
+                              ]
+                          : [
+                              "+91-775-7543-201",
+                              "+91-775-7543-201",
+                              "+91-775-7543-201",
+                            ],
                     ),
                   ),
                 );
@@ -363,7 +375,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const MyList()));
+                                    builder: (context) => const M2m()));
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -389,7 +401,7 @@ class _HomePageState extends State<HomePage> {
                                   backgroundColor: Colors.white,
                                   child: Center(
                                     child: Icon(
-                                      Icons.people,
+                                      FontAwesomeIcons.timeline,
                                       color: Color.fromRGBO(236, 174, 75, 1),
                                       size: 28.0,
                                     ),
@@ -399,7 +411,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 10.0,
                                 ),
                                 Text(
-                                  'Attendees',
+                                  'Agenda',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 18.0,
@@ -453,7 +465,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 10.0,
                                 ),
                                 Text(
-                                  'Live Feed',
+                                  'Event Feed',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 18.0,
