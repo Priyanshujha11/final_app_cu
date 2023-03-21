@@ -8,8 +8,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyProfile extends StatefulWidget {
   String id;
-  bool fromList = false;
-  MyProfile({super.key, required this.id, required this.fromList});
+  bool fromList = false;  bool showLogout = false;
+  MyProfile( {super.key, required this.id, required this.fromList,required this.showLogout});
+
 
   @override
   State<MyProfile> createState() => _MyProfileState();
@@ -127,7 +128,7 @@ class _MyProfileState extends State<MyProfile> {
                                   //   onPressed: () {},
                                   //   icon:
                                   // ),
-                                if(!widget.fromList)  Padding(
+                                if(widget.showLogout)  Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(50, 10, 0, 0),
                                     child: InkWell(

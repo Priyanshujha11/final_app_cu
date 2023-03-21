@@ -39,7 +39,7 @@ class MyList extends StatelessWidget {
                   onTap: () {
                     Get.to(MyProfile(
                       id: doc.id,
-                      fromList: true,
+                      fromList: true, showLogout: false,
                     ));
                   },
                   child: Column(

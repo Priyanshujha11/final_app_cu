@@ -13,7 +13,8 @@ class BottomNavigationBarController extends GetxController {
     // const LivePage(),
     MyProfile(
       id: FirebaseAuth.instance.currentUser!.uid,
-      fromList: false,
+      fromList: false, showLogout: false,
+      
     ),
   ].obs;
 
