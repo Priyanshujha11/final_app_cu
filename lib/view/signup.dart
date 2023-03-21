@@ -236,10 +236,8 @@ class _SignUPState extends State<SignUP> {
                                 "name": nameController.text,
                                 "gmail": email.text,
                                 "designation": designation.text,
-                                "city": city.text,
                                 "companyname": companyName.text,
                                 "linkedin": linkedin.text,
-                                "profile": "",
                               };
                               Map<String, dynamic> noti = {
                                 "title":
