@@ -92,6 +92,7 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyProfile(
+                                        showLogout: true,
                                           id: USERID!, fromList: true)));
                             },
                             child: CircleAvatar(
