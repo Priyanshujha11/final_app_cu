@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_app_cu/view/full_page_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:io' show Platform;
 import 'package:final_app_cu/view/fullpagevier.dart';
 
 import '../controller/download_controller.dart';
@@ -240,6 +241,7 @@ class _PostCardState extends State<PostCard> {
                       SizedBox(
                         width: 12,
                       ),
+                     if(Platform.isAndroid)
                       IconButton(
                         onPressed: () async {
                           Fluttertoast.showToast(msg: "Downloading...");
@@ -292,11 +294,12 @@ class _PostCardState extends State<PostCard> {
                       SizedBox(
                         width: 12,
                       ),
+                      if(Platform.isAndroid)
                       Text(
                         ((3)).toString() + " Downloads",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: const Color(0xffD12123),
+                           color: const Color(0xffD12123),
                         ),
                       )
                     ],

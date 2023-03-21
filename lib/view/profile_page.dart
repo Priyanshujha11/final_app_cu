@@ -130,7 +130,7 @@ class _MyProfileState extends State<MyProfile> {
                                   //   onPressed: () {},
                                   //   icon:
                                   // ),
-                                  Padding(
+                                if(!widget.fromList)  Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(50, 10, 0, 0),
                                     child: InkWell(
