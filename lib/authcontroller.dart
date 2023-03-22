@@ -33,7 +33,7 @@ class AuthController extends GetxController {
     var coll = FirebaseFirestore.instance.collection('companies');
     var quer = await coll.get();
     for (var snap in quer.docs) {
-      if (snap['contact'] == pho) {
+      if (snap['name'] != null && snap['contact'] == pho) {
         toret = true;
       }
     }
