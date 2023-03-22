@@ -30,7 +30,7 @@ void main() async {
   await Firebase.initializeApp();
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-    androidProvider: AndroidProvider.debug,
+    //androidProvider: AndroidProvider.debug,
   );
   PushNotificationService().initialize();
   FirebaseMessaging.onBackgroundMessage(
