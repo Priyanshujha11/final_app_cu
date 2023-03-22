@@ -126,7 +126,8 @@ class _PostCardState extends State<PostCard> {
     print("initstate");
     _likeController = LikeController(postID: widget.postID, userID: USERID!);
     _likeController.checkUserLiked(widget.postID, USERID!);
-    _likeController.updateLikeField(widget.likes);
+    _likeController.getTotalLikes(widget.postID);
+    // _likeController.updateLikeField(widget.likes);
   }
 
   String readTimestamp(Timestamp timestamp) {
@@ -161,7 +162,7 @@ class _PostCardState extends State<PostCard> {
     return time;
   }
 
-  DownloadController _download = new DownloadController();
+  final DownloadController _download = DownloadController();
 
   @override
   Widget build(BuildContext context) {
@@ -206,32 +207,32 @@ class _PostCardState extends State<PostCard> {
                     children: [
                       IconButton(
                         onPressed: () async {
-                          setState(() {
-                            if (_likeController.alreadyLiked.value) {
-                              widget.likes -= 1;
-                              _likeController.removeUserLike(
-                                  widget.postID, USERID);
-                            } else {
-                              widget.likes += 1;
-                              _likeController.addUserLike(
-                                  widget.postID, USERID);
-                            }
-
-                            _likeController.updateLikeField(widget.likes);
-                            _likeController.alreadyLiked.value =
-                                !_likeController.alreadyLiked.value;
-
-                            Future.delayed(Duration(seconds: 5), () {
-                              _likeController.updateLikesInDB(widget.postID);
-                            });
+                          // setState(() {
+                          if (_likeController.alreadyLiked.value) {
+                            widget.likes -= 1;
+                            await _likeController.removeUserLike(
+                                widget.postID, USERID);
+                          } else {
+                            widget.likes += 1;
+                            await _likeController.addUserLike(
+                                widget.postID, USERID);
+                          }
+                          _likeController.toggleLiked();
+                          // _likeController.alreadyLiked.value =
+                          // !_likeController.alreadyLiked.value;
+                          // _likeController.updateLikeField(widget.likes);
+                          // update();
+                          Future.delayed(Duration(seconds: 5), () {
+                            _likeController.updateLikesInDB(widget.postID);
                           });
+                          // });
                           // USERID
                           // postID
                         },
                         icon: _likeController.alreadyLiked.value
-                            ? Icon(
+                            ? const Icon(
                                 FontAwesomeIcons.solidHeart,
-                                color: const Color(0xffD12123),
+                                color: Color(0xffD12123),
                               )
                             : Icon(
                                 FontAwesomeIcons.heart,
@@ -241,33 +242,33 @@ class _PostCardState extends State<PostCard> {
                       SizedBox(
                         width: 12,
                       ),
-                     if(Platform.isAndroid)
-                      IconButton(
-                        onPressed: () async {
-                          Fluttertoast.showToast(msg: "Downloading...");
-                          bool res;
-                          if (widget.type == "picture") {
-                            res = await _download
-                                .saveNetworkImage(widget.imageURL);
-                          } else {
-                            res = await _download
-                                .saveNetworkVideo(widget.videoURL);
-                          }
-                          Fluttertoast.showToast(
-                              msg: res
-                                  ? "${widget.type} downloaded"
-                                  : "Failed to download ${widget.type}");
-                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //     content: res
-                          //         ? Text("$type downnloaded")
-                          //         : Text("Failed to download ${type}"),
-                          //   ));
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.download,
-                          color: const Color(0xffD12123),
-                        ),
-                      )
+                      if (Platform.isAndroid)
+                        IconButton(
+                          onPressed: () async {
+                            Fluttertoast.showToast(msg: "Downloading...");
+                            bool res;
+                            if (widget.type == "picture") {
+                              res = await _download
+                                  .saveNetworkImage(widget.imageURL);
+                            } else {
+                              res = await _download
+                                  .saveNetworkVideo(widget.videoURL);
+                            }
+                            Fluttertoast.showToast(
+                                msg: res
+                                    ? "${widget.type} downloaded"
+                                    : "Failed to download ${widget.type}");
+                            //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            //     content: res
+                            //         ? Text("$type downnloaded")
+                            //         : Text("Failed to download ${type}"),
+                            //   ));
+                          },
+                          icon: Icon(
+                            FontAwesomeIcons.download,
+                            color: const Color(0xffD12123),
+                          ),
+                        )
                     ],
                   ),
                   SizedBox(
@@ -275,17 +276,19 @@ class _PostCardState extends State<PostCard> {
                   ),
                   Row(
                     children: [
-                      widget.likes == 1
+                      _likeController.likesTotal.value == 1
                           ? Text(
                               // widget.likes.toString()+ " Like",
-                              widget.likes.toString() + " Like",
+                              _likeController.likesTotal.value.toString() +
+                                  " Like",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: const Color(0xffD12123),
                               ),
                             )
                           : Text(
-                              widget.likes.toString() + " Likes",
+                              _likeController.likesTotal.value.toString() +
+                                  " Likes",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: const Color(0xffD12123),
@@ -294,14 +297,14 @@ class _PostCardState extends State<PostCard> {
                       SizedBox(
                         width: 12,
                       ),
-                      if(Platform.isAndroid)
-                      Text(
-                        ((3)).toString() + " Downloads",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                           color: const Color(0xffD12123),
-                        ),
-                      )
+                      if (Platform.isAndroid)
+                        Text(
+                          ((3)).toString() + " Downloads",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xffD12123),
+                          ),
+                        )
                     ],
                   ),
                   SizedBox(
@@ -347,7 +350,7 @@ class _VideoCardState extends State<VideoCard> {
     super.initState();
     _controller = widget.videoPlayerController;
     _controller.initialize().then((_) {
-      setState(() {});
+      // setState(() {});
     });
   }
 
@@ -404,3 +407,4 @@ class _VideoCardState extends State<VideoCard> {
     ]);
   }
 }
+

@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import '../models/posts.dart';
@@ -31,9 +32,11 @@ class LikeController extends GetxController {
     final snapshots = await query.get();
     if (snapshots.size == 0) {
       alreadyLiked.value = false;
+      update();
       return false;
     }
     alreadyLiked.value = true;
+    update();
     return true;
   }
 
@@ -44,6 +47,7 @@ class LikeController extends GetxController {
     final snapshots = await query.get();
     final totalLikes = snapshots.size;
     likesTotal.value = totalLikes;
+    update();
 
     return totalLikes;
   }
@@ -56,6 +60,8 @@ class LikeController extends GetxController {
         .where('postID', isEqualTo: postID)
         .where('userID', isEqualTo: userID);
     final snapshots = await query.get();
+    likesTotal.value--;
+    update();
 
     for (final doc in snapshots.docs) {
       await doc.reference.delete();
@@ -73,6 +79,8 @@ class LikeController extends GetxController {
     FirebaseFirestore.instance
         .collection('likes')
         .add({'userID': userID, 'postID': postID});
+    likesTotal.value++;
+    update();
     // Future.delayed(Duration(seconds: 5));
     // getTotalLikes(postID)
   }
@@ -87,5 +95,10 @@ class LikeController extends GetxController {
         .collection('livestream')
         .doc(postID)
         .update({'likes': likesTotal.value});
+  }
+
+  toggleLiked() {
+    alreadyLiked.value = !alreadyLiked.value;
+    update();
   }
 }
