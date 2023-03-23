@@ -20,6 +20,9 @@ void main() async {
     if (phone != null) {
       AuthController _auth = new AuthController();
       var userDATA = await _auth.getUserData(phone);
+      if (userDATA == null) {
+        return const MyPhone();
+      }
       print("++++++++++++++++++++");
       print(userDATA);
       print(phone);
