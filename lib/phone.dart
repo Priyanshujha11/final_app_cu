@@ -146,8 +146,7 @@ class _MyPhoneState extends State<MyPhone> {
                           setState(() {
                             verifyPressed = true;
                           });
-                          await auth.signInWithPhone(
-                              context, phoneController.text);
+                          await auth.check(phoneController.text);
                           // setState(() {
                           // verifyPressed = false;
                           // });

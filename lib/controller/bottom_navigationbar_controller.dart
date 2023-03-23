@@ -1,3 +1,4 @@
+import 'package:final_app_cu/view/app_base.dart';
 import 'package:final_app_cu/view/gallery_page.dart';
 import 'package:final_app_cu/view/home_page.dart';
 import 'package:final_app_cu/view/liveview.dart';
@@ -9,13 +10,13 @@ class BottomNavigationBarController extends GetxController {
   RxInt currentPage = 0.obs;
   final appPages = [
     HomePage(),
-    const GalleryPage(),
-    // const LivePage(),
-    MyProfile(
-      showLogout: false,
-      id: FirebaseAuth.instance.currentUser!.uid,
-      fromList: false,
-    ),
+    // const GalleryPage(),
+    // // const LivePage(),
+    // MyProfile(
+    //   showLogout: false,
+    //   id: USERID!,
+    //   fromList: false,
+    // ),
   ].obs;
 
   @override

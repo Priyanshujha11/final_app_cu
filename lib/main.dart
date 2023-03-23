@@ -20,7 +20,14 @@ void main() async {
     if (phone != null) {
       AuthController _auth = new AuthController();
       var userDATA = await _auth.getUserData(phone);
-      return AppBase(usernewId: phone, usernewData: userDATA);
+      if (userDATA == null) {
+        return const MyPhone();
+      }
+      print("++++++++++++++++++++");
+      print(userDATA);
+      print(phone);
+      print("++++++++++++++++++++");
+      return AppBase(usernewId: phone.toString(), usernewData: userDATA);
     } else {
       return const MyPhone();
     }
@@ -35,7 +42,7 @@ void main() async {
           projectId: 'bizconnect-f788a'));
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-    androidProvider: AndroidProvider.debug,
+    // androidProvider: AndroidProvider.debug,
   );
   PushNotificationService().initialize();
   FirebaseMessaging.onBackgroundMessage(

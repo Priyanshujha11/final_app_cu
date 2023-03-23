@@ -12,7 +12,11 @@ class MyProfile extends StatefulWidget {
   String id;
   bool fromList = false;
   bool showLogout = false;
-  MyProfile({super.key, required this.id,required this.showLogout, required this.fromList});
+  MyProfile(
+      {super.key,
+      required this.id,
+      required this.showLogout,
+      required this.fromList});
 
   @override
   State<MyProfile> createState() => _MyProfileState();
@@ -38,11 +42,9 @@ class _MyProfileState extends State<MyProfile> {
     print("|||||||" + widget.id.toString() + "|||||");
 
     return Scaffold(
-      appBar: widget.fromList
-          ? CuAppBar(
-              isHome: false,
-            )
-          : null,
+      appBar: CuAppBar(
+        isHome: false,
+      ),
       backgroundColor: Colors.white,
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
@@ -89,7 +91,7 @@ class _MyProfileState extends State<MyProfile> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
                         Container(
                           // height: MediaQuery.of(context).size.height * 0.65,
@@ -103,7 +105,7 @@ class _MyProfileState extends State<MyProfile> {
                               child: Column(
                                 children: [
                                   const SizedBox(
-                                    height: 150,
+                                    height: 170,
                                   ),
 
                                   TextContainer(
@@ -131,36 +133,37 @@ class _MyProfileState extends State<MyProfile> {
                                   //   onPressed: () {},
                                   //   icon:
                                   // ),
-                                if(widget.showLogout)  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(50, 10, 0, 0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        // TODO: Call logout here
-                                        auth.logout();
-                                        print("INSIDE LOGOUT");
-                                      },
-                                      child: Container(
-                                        height: 50,
-                                        width: 250,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            gradient: LinearGradient(colors: [
-                                              const Color(0xffD12123)
-                                                  .withOpacity(0.57),
-                                              const Color(0xffD12123)
-                                            ])),
-                                        child: const Center(
-                                            child: Text(
-                                          'Logout',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.white),
-                                        )),
+                                  if (widget.showLogout)
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          50, 10, 0, 0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          // TODO: Call logout here
+                                          auth.logout();
+                                          print("INSIDE LOGOUT");
+                                        },
+                                        child: Container(
+                                          height: 50,
+                                          width: 250,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              gradient: LinearGradient(colors: [
+                                                const Color(0xffD12123)
+                                                    .withOpacity(0.57),
+                                                const Color(0xffD12123)
+                                              ])),
+                                          child: const Center(
+                                              child: Text(
+                                            'Logout',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white),
+                                          )),
+                                        ),
                                       ),
                                     ),
-                                  ),
 
                                   // buildTextField("Phone Number", phoneController),
                                   // buildTextField("Email ID", emailController),

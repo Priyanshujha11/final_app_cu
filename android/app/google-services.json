@@ -160,6 +160,13 @@
               "ios_info": {
                 "bundle_id": "com.example.finalAppCu"
               }
+            },
+            {
+              "client_id": "163578232522-5jm4hith2pr8nv0ebuqkc0jv65l4hgtp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.finalAppCu"
+              }
             }
           ]
         }

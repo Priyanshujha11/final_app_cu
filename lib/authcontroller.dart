@@ -18,22 +18,46 @@ class AuthController extends GetxController {
         .collection('companies')
         .doc(userID.toString())
         .get();
-    Map<String, dynamic> m = res.data() as Map<String, dynamic>;
+    Map<String, dynamic> m;
+    try {
+      m = res.data() as Map<String, dynamic>;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
     print("^^^^^^^");
     print(m);
     print(m['name']);
     print("^^^^^^^");
+
     return m;
   }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? usernewId;
+
+  check(String pho) async {
+    pho = '+91' + pho;
+    usernewId = pho;
+    bool checkForPreRegistration = await checkif(pho.toString());
+    if (checkForPreRegistration) {
+      await _storageController.addForAuth(pho);
+      var userDATA = await getUserData(pho);
+      print(userDATA);
+      Get.offAll(AppBase(usernewId: pho, usernewData: userDATA));
+    } else {
+      Get.offAll(SignUP(
+        usernewId: pho,
+      ));
+    }
+  }
+
   Future<bool> checkif(String? pho) async {
     bool toret = false;
     var coll = FirebaseFirestore.instance.collection('companies');
     var quer = await coll.get();
     for (var snap in quer.docs) {
-      if (snap['contact'] == pho) {
+      if (snap.id.toString() == pho) {
         toret = true;
       }
     }

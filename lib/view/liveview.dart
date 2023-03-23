@@ -208,7 +208,8 @@ class _PostCardState extends State<PostCard> {
                       IconButton(
                         onPressed: () async {
                           // setState(() {
-                          if (_likeController.alreadyLiked.value) {
+                          _likeController.toggleLiked();
+                          if (!_likeController.alreadyLiked.value) {
                             widget.likes -= 1;
                             await _likeController.removeUserLike(
                                 widget.postID, USERID);
@@ -217,7 +218,7 @@ class _PostCardState extends State<PostCard> {
                             await _likeController.addUserLike(
                                 widget.postID, USERID);
                           }
-                          _likeController.toggleLiked();
+
                           // _likeController.alreadyLiked.value =
                           // !_likeController.alreadyLiked.value;
                           // _likeController.updateLikeField(widget.likes);
@@ -407,4 +408,3 @@ class _VideoCardState extends State<VideoCard> {
     ]);
   }
 }
-
