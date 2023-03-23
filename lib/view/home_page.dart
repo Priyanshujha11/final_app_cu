@@ -483,66 +483,69 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 8.0,
                 ),
-                SizedBox(
-                  height: Get.width * 0.5 - 15,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [
-                                Colors.cyan.shade300,
-                                Colors.cyan.shade600,
-                                Colors.cyan.shade800
-                              ]),
-                              borderRadius: BorderRadius.circular(12.0),
-                              color: Colors.cyan,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  '  Where can you find us',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                    fontSize: 24.0,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [
+                              Colors.cyan.shade300,
+                              Colors.cyan.shade600,
+                              Colors.cyan.shade800
+                            ]),
+                            borderRadius: BorderRadius.circular(12.0),
+                            color: Colors.cyan,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              const Text(
+                                '  Where can you find us',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                  fontSize: 24.0,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25.0,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  socialMediaHandle(
+                                      context,
+                                      "Shri Satnam \nSingh Sandhu",
+                                      "assets/social_media/sandhu.jpeg",
+                                      0),
+                                  const SizedBox(
+                                    width: 25.0,
                                   ),
-                                ),
-                                const SizedBox(
-                                  height: 25.0,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    socialMediaHandle(
-                                        context,
-                                        "Shri Satnam \nSingh Sandhu",
-                                        "assets/social_media/sandhu.jpeg",
-                                        0),
-                                    const SizedBox(
-                                      width: 25.0,
-                                    ),
-                                    socialMediaHandle(context, "NID",
-                                        "assets/social_media/nid.jpeg", 1),
-                                    const SizedBox(
-                                      width: 25.0,
-                                    ),
-                                    socialMediaHandle(context, "CWT",
-                                        "assets/social_media/cwt.jpeg", 2),
-                                    const SizedBox(
-                                      width: 25.0,
-                                    ),
-                                    socialMediaHandle(context, "CU",
-                                        "assets/social_media/cu.jpeg", 3),
-                                  ],
-                                ),
-                              ],
-                            )),
-                      )
-                    ],
-                  ),
+                                  socialMediaHandle(context, "NID",
+                                      "assets/social_media/nid.jpeg", 1),
+                                  const SizedBox(
+                                    width: 25.0,
+                                  ),
+                                  socialMediaHandle(context, "CWT",
+                                      "assets/social_media/cwt.jpeg", 2),
+                                  const SizedBox(
+                                    width: 25.0,
+                                  ),
+                                  socialMediaHandle(context, "CU",
+                                      "assets/social_media/cu.jpeg", 3),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          )),
+                    )
+                  ],
                 ),
               ],
             ),

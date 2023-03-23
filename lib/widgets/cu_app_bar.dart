@@ -40,7 +40,7 @@ class CuAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Colors.white,
             padding: const EdgeInsets.symmetric(
               horizontal: 15.0,
-              vertical: 20.0,
+              vertical: 15.0,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
