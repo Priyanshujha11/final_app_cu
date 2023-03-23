@@ -235,6 +235,7 @@ class _SignUPState extends State<SignUP> {
                               Map<String, dynamic> res = {
                                 "name": nameController.text,
                                 "gmail": email.text,
+                                "contact": widget.usernewId.toString(),
                                 "designation": designation.text,
                                 "companyname": companyName.text,
                                 "linkedin": linkedin.text,
@@ -250,7 +251,7 @@ class _SignUPState extends State<SignUP> {
                               FirebaseFirestore.instance
                                   .collection('companies')
                                   .doc(widget.usernewId)
-                                  .update(res);
+                                  .set(res);
                               FirebaseFirestore.instance
                                   .collection('companies')
                                   .doc(widget.usernewId)

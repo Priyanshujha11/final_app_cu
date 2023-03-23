@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 30.0),
                   Text(
-                    'Welcome,' + 'Dear ' + '$name!\n',
+                    'Welcome,' + ' Dear ' + '$name!\n',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

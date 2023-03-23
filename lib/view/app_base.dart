@@ -4,30 +4,33 @@ import 'package:final_app_cu/widgets/cu_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-String? USERID;
-var  USERDATA;
-
+var USERID;
+var USERDATA;
 
 class AppBase extends StatefulWidget {
   var usernewId;
   var usernewData;
 
-  AppBase({required this.usernewId,required this.usernewData, super.key});
+  AppBase({required this.usernewId, required this.usernewData, super.key});
 
   @override
   State<AppBase> createState() => _AppBaseState();
 }
 
 class _AppBaseState extends State<AppBase> {
-  BottomNavigationBarController bottomNavigationBarController =
-      Get.put(BottomNavigationBarController());
+  // BottomNavigationBarController bottomNavigationBarController =
+  //     Get.put(BottomNavigationBarController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    USERID = widget.usernewId;
+    USERDATA = widget.usernewData;
+  }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      USERID = widget.usernewId;
-      USERDATA = widget.usernewData;
-    });
     return GetX<BottomNavigationBarController>(
       builder: (controller) {
         return SafeArea(
@@ -38,7 +41,7 @@ class _AppBaseState extends State<AppBase> {
                 isHome: true,
               ),
             ),
-            body: controller.appPages[controller.currentPage.value],
+            body: controller.appPages[0],
             // bottomNavigationBar: SizedBox(
             //   height: 65,
             //   child: BottomNavigationBar(
