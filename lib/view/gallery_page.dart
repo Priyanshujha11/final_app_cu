@@ -54,7 +54,7 @@ class GalleryPage extends StatelessWidget {
                         Get.to(
                           FullPageImage(
                             imgSrc: data[index]['url'].toString(),
-                            title: data[index]['desc'].toString(),
+                            title: data[index]['title'].toString(),
                             desc: data[index]['desc'].toString(),
                             org: data[index]['original'].toString(),
                           ),

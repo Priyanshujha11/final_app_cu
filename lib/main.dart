@@ -15,20 +15,24 @@ import 'bizconnect/introduction_animation/introduction_animation_screen.dart';
 
 void main() async {
   Future<Widget> checkForAuthentication() async {
-    StorageController _storage = new StorageController();
-    var phone = await _storage.checkForAuth();
-    if (phone != null) {
-      AuthController _auth = new AuthController();
-      var userDATA = await _auth.getUserData(phone);
-      if (userDATA == null) {
+    try {
+      StorageController _storage = new StorageController();
+      var phone = await _storage.checkForAuth();
+      if (phone != null) {
+        AuthController _auth = new AuthController();
+        var userDATA = await _auth.getUserData(phone);
+        if (userDATA == null) {
+          return const MyPhone();
+        }
+        print("++++++++++++++++++++");
+        print(userDATA);
+        print(phone);
+        print("++++++++++++++++++++");
+        return AppBase(usernewId: phone.toString(), usernewData: userDATA);
+      } else {
         return const MyPhone();
       }
-      print("++++++++++++++++++++");
-      print(userDATA);
-      print(phone);
-      print("++++++++++++++++++++");
-      return AppBase(usernewId: phone.toString(), usernewData: userDATA);
-    } else {
+    } catch (e) {
       return const MyPhone();
     }
   }

@@ -28,7 +28,7 @@ List<SocialMediaModel> socialMediaData = [
       name: "NID Foundation",
       desc:
           "NID Foundation is a social, economic, and political outreach & engagement organization that works with the community, government, industry, and civil society stakeholders to generate reform-oriented intelligence in areas of domestic and international issues, governance, education, and environmental reforms, thereby supporting leaders and policymakers in making informed decisions. Our vision uses global challenges as props and set cutting-edge experiential learning tools to trigger this adaptive capacity.",
-      profileImage: 'assets/social_media/nid.jpeg',
+      profileImage: 'assets/social_media/nidreal.jpeg',
       socialHandles: {
         "linkedin": "https://www.linkedin.com/company/nid-foundation/",
         "twitter":
@@ -38,7 +38,7 @@ List<SocialMediaModel> socialMediaData = [
       name: "Chandigarh Welfare Trust",
       desc:
           "Chandigarh Welfare Trust is established and driven by the sole conviction of giving back to the city that has given us our lifeblood. With the aspiration of restituting this city as a model of development for other cities in India and elevating its standing among the cities of the world, Chandigarh Welfare Trust will restore, advance, and promote the glory of our city beautiful to the farthest corners of the world through impact oriented programs aimed at improving the status quo on every facet of the city.",
-      profileImage: 'assets/social_media/cwt.jpeg',
+      profileImage: 'assets/social_media/cwtreal.jpeg',
       socialHandles: {
         "twitter":
             "https://twitter.com/ChdWelfareTrust?t=wUiu73J-FbjsGT3w02V2rA&s=09",

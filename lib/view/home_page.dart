@@ -55,69 +55,69 @@ class _HomePageState extends State<HomePage> {
             borderRadius: BorderRadius.circular(20.0),
           ),
           content: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15.0),
-            child: Container(
-              height: Get.size.height * 0.5 + 50,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 2,
-                      ),
-                      InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(Icons.close))
-                    ],
-                  ),
-                  Center(
-                    child: CircleAvatar(
-                      radius: 40.0,
-                      backgroundImage:
-                          AssetImage('assets/social_media/sandhu.jpeg'),
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 2,
                     ),
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.close))
+                  ],
+                ),
+                Center(
+                  child: CircleAvatar(
+                    radius: 40.0,
+                    backgroundImage:
+                        AssetImage('assets/social_media/sandhu.jpeg'),
                   ),
-                  SizedBox(height: 30.0),
-                  Text(
-                    'Welcome,' + ' Dear ' + '$name!\n',
+                ),
+                SizedBox(height: 30.0),
+                Text(
+                  'Welcome,' + ' Dear ' + '$name!\n',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "As Chancellor of this esteemed institution, it is my distinct pleasure to welcome our distinguished guests to CAB'23. We look forward to your insights and contributions to this important gathering.",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    '\nSatnam Singh Sandhu',
                     style: TextStyle(
-                      fontSize: 20.0,
+                      fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    "As Chancellor of this esteemed institution, it is my distinct pleasure to welcome our distinguished guests to CAB'23. We look forward to your insights and contributions to this important gathering.",
+                ),
+                Center(
+                  child: Text(
+                    'Founder Chancellor',
                     style: TextStyle(
                       fontSize: 18.0,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(255, 89, 73, 1),
                     ),
                   ),
-                  Center(
-                    child: Text(
-                      '\nSatnam Singh Sandhu',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      'Founder Chancellor',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(255, 89, 73, 1),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
             ),
           ),
         );
@@ -526,12 +526,12 @@ class _HomePageState extends State<HomePage> {
                                     width: 25.0,
                                   ),
                                   socialMediaHandle(context, "NID",
-                                      "assets/social_media/nid.jpeg", 1),
+                                      "assets/social_media/nidreal.jpeg", 1),
                                   const SizedBox(
                                     width: 25.0,
                                   ),
                                   socialMediaHandle(context, "CWT",
-                                      "assets/social_media/cwt.jpeg", 2),
+                                      "assets/social_media/cwtreal.jpeg", 2),
                                   const SizedBox(
                                     width: 25.0,
                                   ),
