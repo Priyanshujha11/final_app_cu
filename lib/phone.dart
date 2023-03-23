@@ -82,7 +82,7 @@ class _MyPhoneState extends State<MyPhone> {
                     height: 10,
                   ),
                   Text(
-                    "We need to register your phone without getting started!",
+                    "We need to register your phone before getting started!",
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -142,11 +142,12 @@ class _MyPhoneState extends State<MyPhone> {
                             primary: Color(0xffD12123),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
-                        onPressed: () async{
+                        onPressed: () async {
                           setState(() {
-                          verifyPressed = true;
+                            verifyPressed = true;
                           });
-                          await auth.signInWithPhone(context, phoneController.text);
+                          await auth.signInWithPhone(
+                              context, phoneController.text);
                           // setState(() {
                           // verifyPressed = false;
                           // });

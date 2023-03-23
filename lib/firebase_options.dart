@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,21 +43,43 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyA6llx_1QQpc2ZbKKenqONRDQ5TXfO2nXs',
+    appId: '1:163578232522:web:5827dfeee0ce2f954c3e33',
+    messagingSenderId: '163578232522',
+    projectId: 'bizconnect-f788a',
+    authDomain: 'bizconnect-f788a.firebaseapp.com',
+    storageBucket: 'bizconnect-f788a.appspot.com',
+    measurementId: 'G-W9LY7F88W1',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyABuAMSSqKLDqito998wLohuzkvAEULtes',
-    appId: '1:707738684145:android:77bef796fd2447897b7750',
-    messagingSenderId: '707738684145',
-    projectId: 'bizconnect-cu',
-    storageBucket: 'bizconnect-cu.appspot.com',
+    apiKey: 'AIzaSyCEPoXqU9KSXyEHClJhLehDHmR4Ud-6GOo',
+    appId: '1:163578232522:android:79270a893b7090624c3e33',
+    messagingSenderId: '163578232522',
+    projectId: 'bizconnect-f788a',
+    storageBucket: 'bizconnect-f788a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA-BNGUZM5JLFQTzNQvo3Xe1IH3gUFRjwo',
-    appId: '1:707738684145:ios:e56dd250a4da6af97b7750',
-    messagingSenderId: '707738684145',
-    projectId: 'bizconnect-cu',
-    storageBucket: 'bizconnect-cu.appspot.com',
-    iosClientId: '707738684145-pbgo5phas2cl0e4qpgutr64p3mj0cdki.apps.googleusercontent.com',
-    iosBundleId: 'in.cuchd.bizconnect',
+    apiKey: 'AIzaSyD4j1piGfvohkITmfzXTxr51yzDxqu3Wzo',
+    appId: '1:163578232522:ios:1b6ee79cb4e025c84c3e33',
+    messagingSenderId: '163578232522',
+    projectId: 'bizconnect-f788a',
+    storageBucket: 'bizconnect-f788a.appspot.com',
+    androidClientId: '163578232522-2t79luslfhhnlq47hnordkb65k8ir26g.apps.googleusercontent.com',
+    iosClientId: '163578232522-5jm4hith2pr8nv0ebuqkc0jv65l4hgtp.apps.googleusercontent.com',
+    iosBundleId: 'com.example.finalAppCu',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyD4j1piGfvohkITmfzXTxr51yzDxqu3Wzo',
+    appId: '1:163578232522:ios:1b6ee79cb4e025c84c3e33',
+    messagingSenderId: '163578232522',
+    projectId: 'bizconnect-f788a',
+    storageBucket: 'bizconnect-f788a.appspot.com',
+    androidClientId: '163578232522-2t79luslfhhnlq47hnordkb65k8ir26g.apps.googleusercontent.com',
+    iosClientId: '163578232522-5jm4hith2pr8nv0ebuqkc0jv65l4hgtp.apps.googleusercontent.com',
+    iosBundleId: 'com.example.finalAppCu',
   );
 }

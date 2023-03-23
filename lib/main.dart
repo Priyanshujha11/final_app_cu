@@ -27,7 +27,12 @@ void main() async {
   }
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+          apiKey: 'AIzaSyCEPoXqU9KSXyEHClJhLehDHmR4Ud-6GOo',
+          appId: '1:163578232522:android:9f6715e5ffb4a8a24c3e33',
+          messagingSenderId: '',
+          projectId: 'bizconnect-f788a'));
   await FirebaseAppCheck.instance.activate(
     webRecaptchaSiteKey: 'recaptcha-v3-site-key',
     androidProvider: AndroidProvider.debug,
