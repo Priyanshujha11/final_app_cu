@@ -60,7 +60,7 @@ dependencies:
   firebase_app_check: ^0.1.1+14
   webview_flutter: ^4.0.7
   build_runner: ^2.3.3
-  build_web_compilers: ^4.0.0
+  build_web_compilers: ^3.0.0
   firebase_core_web: ^2.2.2
 
 
